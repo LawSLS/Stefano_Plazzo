@@ -17,40 +17,40 @@ class ParisValeurFonciere
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nature_mutation = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $no_voie = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $b_t_q = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $type_voie = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $code_voie = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $voie = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $code_postal = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $commune = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $section = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $nb_lots = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $code_type_local = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $surface_reelle_bati = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $nb_pieces = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -62,13 +62,13 @@ class ParisValeurFonciere
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $d_p_e = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $prix_vente = null;
 
     #[ORM\Column(type: Types::ARRAY, nullable: true)]
     private ?array $images = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_creation_annonce = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
@@ -78,7 +78,7 @@ class ParisValeurFonciere
     private ?string $date_mutation = null;
 
     #[ORM\ManyToOne(inversedBy: 'parisValeurFoncieres')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     public function getId(): ?int
