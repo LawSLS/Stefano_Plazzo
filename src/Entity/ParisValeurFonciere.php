@@ -17,40 +17,40 @@ class ParisValeurFonciere
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nature_mutation = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $no_voie = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $b_t_q = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $type_voie = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $code_voie = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $voie = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $code_postal = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $commune = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $section = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $nb_lots = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $code_type_local = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $surface_reelle_bati = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $nb_pieces = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -62,13 +62,13 @@ class ParisValeurFonciere
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $d_p_e = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $prix_vente = null;
 
     #[ORM\Column(type: Types::ARRAY, nullable: true)]
     private ?array $images = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_creation_annonce = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
@@ -78,8 +78,20 @@ class ParisValeurFonciere
     private ?string $date_mutation = null;
 
     #[ORM\ManyToOne(inversedBy: 'parisValeurFoncieres')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $valeur_fonciere = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $code_departement = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $code_commune = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $type_local = null;
 
     public function getId(): ?int
     {
@@ -346,6 +358,54 @@ class ParisValeurFonciere
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getValeurFonciere(): ?float
+    {
+        return $this->valeur_fonciere;
+    }
+
+    public function setValeurFonciere(?float $valeur_fonciere): static
+    {
+        $this->valeur_fonciere = $valeur_fonciere;
+
+        return $this;
+    }
+
+    public function getCodeDepartement(): ?string
+    {
+        return $this->code_departement;
+    }
+
+    public function setCodeDepartement(?string $code_departement): static
+    {
+        $this->code_departement = $code_departement;
+
+        return $this;
+    }
+
+    public function getCodeCommune(): ?string
+    {
+        return $this->code_commune;
+    }
+
+    public function setCodeCommune(?string $code_commune): static
+    {
+        $this->code_commune = $code_commune;
+
+        return $this;
+    }
+
+    public function getTypeLocal(): ?string
+    {
+        return $this->type_local;
+    }
+
+    public function setTypeLocal(?string $type_local): static
+    {
+        $this->type_local = $type_local;
 
         return $this;
     }
