@@ -11,11 +11,15 @@ class ProductDetailPageController extends AbstractController
     #[Route('/pdp', name: 'app_pdp')]
     public function index(): Response
     {
-        $picturePath = "https://img.freepik.com/photos-gratuite/vue-du-batiment-architecture-style-dessin-anime_23-2151154913.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1720742400&semt=ais_user";
+        $picturePath = ["https://www.verocotrel.fr/wp-content/uploads/2017/10/tito6323.jpg",
+    "https://projets.cotemaison.fr/uploads/projects/5806/project_85290596cdb02bae8b_pic_1.jpg",
+"https://www.verocotrel.fr/wp-content/uploads/2017/10/tito6308.jpg"];
        
         return $this->render('product_detail_page/pdp.html.twig', [
             'controller_name' => 'ProductDetailPageController',
-            'photo' => $picturePath,
+            'photo' => $picturePath[0],
+            'photo1' => $picturePath[1],
+            'photo2' => $picturePath[2]
         ]);
     }
 }
