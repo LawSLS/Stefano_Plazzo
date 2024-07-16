@@ -1,3 +1,21 @@
 body {
-    background-color: skyblue;
+    background-color: #fff;
+}
+
+.navbar, footer {
+    background-color: #6f42c1;
+    color: #FFF;
+}
+
+.nav-link {
+    color:#FFF;
+}
+
+
+.card {
+    width: 38rem;
+}
+
+footer ul {
+    list-style-type: none;
 }

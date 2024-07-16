@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{titlePage}}{% endblock %}
+
+{% block body %}
+
+<section id="informations" class="m-5">
+    <h1>Stefano Plazzo Escroc Immo</h1>
+    <p>Bienvenu sur le site Escroc Immo, vous vendez nous vous escrocquons!</p>
+</section>
+
+<section id="filters">
+    <h2></h2>
+</section>
+
+<section id="cards-list" class="d-flex mt-5 mb-3 mx-5">
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <div class="d-flex">
+            <p class="card-text pe-5">Type : </p>
+            <p class="card-text pe-5">Localisation : </p>
+            <p class="card-text pe-5">Prix : </p>
+        </div>
+        <a href="#" class="btn btn-primary">Plus de détails</a>
+      </div>
+    </div>
+    
+</section>
+
+{% endblock %}
