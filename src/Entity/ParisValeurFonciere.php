@@ -84,6 +84,15 @@ class ParisValeurFonciere
     #[ORM\Column(nullable: true)]
     private ?float $valeur_fonciere = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $code_departement = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $code_commune = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $type_local = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -361,6 +370,42 @@ class ParisValeurFonciere
     public function setValeurFonciere(?float $valeur_fonciere): static
     {
         $this->valeur_fonciere = $valeur_fonciere;
+
+        return $this;
+    }
+
+    public function getCodeDepartement(): ?string
+    {
+        return $this->code_departement;
+    }
+
+    public function setCodeDepartement(?string $code_departement): static
+    {
+        $this->code_departement = $code_departement;
+
+        return $this;
+    }
+
+    public function getCodeCommune(): ?string
+    {
+        return $this->code_commune;
+    }
+
+    public function setCodeCommune(?string $code_commune): static
+    {
+        $this->code_commune = $code_commune;
+
+        return $this;
+    }
+
+    public function getTypeLocal(): ?string
+    {
+        return $this->type_local;
+    }
+
+    public function setTypeLocal(?string $type_local): static
+    {
+        $this->type_local = $type_local;
 
         return $this;
     }
