@@ -9,8 +9,12 @@ body {
   border: none;
 }
 
-header .bg-color {
+header {
   background-color: #6f42c1;
+  color: white;
+}
+header a{
+  color:white !important;
 }
 
 header img {
@@ -19,6 +23,10 @@ header img {
 
 header .btn {
   background-color: #fb9102;
+  color: white;
+}
+footer {
+  background-color: #6f42c1;
   color: white;
 }
 main .d-flex.justify-content-center button {
