@@ -81,6 +81,9 @@ class ParisValeurFonciere
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $valeur_fonciere = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -346,6 +349,18 @@ class ParisValeurFonciere
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getValeurFonciere(): ?float
+    {
+        return $this->valeur_fonciere;
+    }
+
+    public function setValeurFonciere(?float $valeur_fonciere): static
+    {
+        $this->valeur_fonciere = $valeur_fonciere;
 
         return $this;
     }
