@@ -28,46 +28,28 @@ class HomeController extends AbstractController
     {
         $form = $this->createForm(AreaFilterType::class);
         $form->handleRequest($request);
+        $propertyAssets = $em->getRepository(ParisValeurFonciere::class)->findAll();
+        $filteredProperties = $propertyAssets;
        
         $min_area = 0;
         $max_area = PHP_INT_MAX;
 
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
-            $min_area = $form->get('min_area')->getData() ?? 0;
-            $max_area = $form->get('max_area')->getData() ?? PHP_INT_MAX;
-        }
-        $propertyAssets = $em->getRepository(ParisValeurFonciere::class)->findAll();
-        $result = [];
+            $min_area = $data['min_area'] ?? 0;
+            $max_area = $data['max_area'] ?? PHP_INT_MAX;
 
-        foreach ($propertyAssets as $property) {
-            
-            if($property->getSurfaceReelleBati()>= $min_area && $property->getSurfaceReelleBati()<= $max_area)
-            {
-                $result[] = $property;
-            }
+            $filteredProperties = array_filter($filteredProperties, function($property) use ($min_area, $max_area) {
+                $surface = $property->getSurfaceReelleBati();
+                return $surface >= $min_area && $surface <= $max_area;
+            });
         }
      
-        $session->set('filtered_properties', $result);
-        // $filteredProperties = $session->get('filtered_properties', null);
-        /* if ($filteredProperties === null) {
-            $propertyAssets = $em->getRepository(ParisValeurFonciere::class)->findAll();
-        } else {
-            $propertyAssets = $filteredProperties;
-        } */
      
         return $this->render('home/index.html.twig', [
             'filterAreaForm' => $form->createView(),
-            'filterArea' => $result,
+            'filters' => $filteredProperties,
         ]);
-    }
-
-    #[Route('/home/clear-filters', name: 'app_home_clear_filters')]
-    public function clearFilters(SessionInterface $session): Response
-    {
-        $session->remove('filtered_properties');
-
-        return $this->redirectToRoute('app_home');
     }
 }
 
