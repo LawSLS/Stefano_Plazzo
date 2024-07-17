@@ -11,6 +11,15 @@
 
 <section id="filters">
     <h2>ICI LES FILTRES</h2>
+    {{ form_start(filterAreaForm) }}
+        {{ form_row(filterAreaForm.min_area) }}
+        {{ form_row(filterAreaForm.max_area) }}
+        <button type="submit">Filter</button>
+    {{ form_end(filterAreaForm) }}
+
+    {% for property in filterArea %}
+      <p>{{property.surfaceReelleBati}}</p>
+    {% endfor %}
 </section>
 
 <section id="cards-list" class="d-flex mt-5 mb-3 mx-5">

@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\ParisValeurFonciere;
+use App\Form\AreaFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use PDO;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
@@ -22,11 +24,20 @@ class HomeController extends AbstractController
     }
 
     #[Route('/home', name: 'app_home')]
-    public function filterByArea(EntityManagerInterface $em) : Response
+    public function filterByArea(EntityManagerInterface $em, Request $request) : Response
     {
+        $form = $this->createForm(AreaFilterType::class);
+        $form->handleRequest($request);
+       
+        $min_area = 0;
+        $max_area = PHP_INT_MAX;
+
+        if($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+            $min_area = $form->get('min_area')->getData() ?? 0;
+            $max_area = $form->get('max_area')->getData() ?? PHP_INT_MAX;
+        }
         $propertyAssets = $em->getRepository(ParisValeurFonciere::class)->findAll();
-        $min_area = 5;
-        $max_area = 9;
         $result = [];
 
         foreach ($propertyAssets as $property) {
@@ -36,11 +47,10 @@ class HomeController extends AbstractController
                 $result[] = $property;
             }
         }
-        dd($result);
+     
      
         return $this->render('home/index.html.twig', [
-            'min_area' => $min_area,
-            'max_area' => $max_area,
+            'filterAreaForm' => $form->createView(),
             'filterArea' => $result,
         ]);
     }
