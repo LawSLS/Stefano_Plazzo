@@ -8,8 +8,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use PDO;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class HomeController extends AbstractController
 {
@@ -24,7 +24,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/home', name: 'app_home')]
-    public function filterByArea(EntityManagerInterface $em, Request $request) : Response
+    public function filterByArea(EntityManagerInterface $em, Request $request, SessionInterface $session) : Response
     {
         $form = $this->createForm(AreaFilterType::class);
         $form->handleRequest($request);
@@ -48,10 +48,26 @@ class HomeController extends AbstractController
             }
         }
      
+        $session->set('filtered_properties', $result);
+        // $filteredProperties = $session->get('filtered_properties', null);
+        /* if ($filteredProperties === null) {
+            $propertyAssets = $em->getRepository(ParisValeurFonciere::class)->findAll();
+        } else {
+            $propertyAssets = $filteredProperties;
+        } */
      
         return $this->render('home/index.html.twig', [
             'filterAreaForm' => $form->createView(),
             'filterArea' => $result,
         ]);
     }
+
+    #[Route('/home/clear-filters', name: 'app_home_clear_filters')]
+    public function clearFilters(SessionInterface $session): Response
+    {
+        $session->remove('filtered_properties');
+
+        return $this->redirectToRoute('app_home');
+    }
 }
+
