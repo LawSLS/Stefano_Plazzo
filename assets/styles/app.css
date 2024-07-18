@@ -7,6 +7,10 @@ body {
     color: #FFF;
 }
 
+.logo {
+    width: 8rem;
+}
+
 .nav-link {
     color:#FFF;
 }
