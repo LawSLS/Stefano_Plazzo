@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+<section id="informations" class="m-5">
+    <h1>Stefano Plazzo Escroc Immo</h1>
+    <p>Bienvenu sur le site Escroc Immo, vous vendez nous vous escrocquons!</p>
+</section>
+<div class="filterButtons d-flex justify-content-between">
+<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#filterModal">
+    Superficie
+</button>
+<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#zipModal">
+    Code postal
+</button>
+<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#roomModal">
+    Nombre de pièces
+</button>
+<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#priceModal">
+    Prix du bien
+</button>
+</div>
+
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Surface à filtrer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(filterAreaForm) }}
+                    {{ form_row(filterAreaForm.min_area) }}
+                    {{ form_row(filterAreaForm.max_area) }}
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                {{ form_end(filterAreaForm) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="zipModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Code postal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(filterZipForm) }}
+                    {{ form_row(filterZipForm.code_postal) }}
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                {{ form_end(filterZipForm) }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Nombre de pièces</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(filterRoomForm) }}
+                    {{ form_row(filterRoomForm.nb_pieces) }}
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                {{ form_end(filterRoomForm) }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="priceModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterModalLabel">Prix du bien</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(filterPriceForm) }}
+                    {{ form_row(filterPriceForm.min_price) }}
+                    {{ form_row(filterPriceForm.max_price) }}
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                {{ form_end(filterPriceForm) }}
+            </div>
+        </div>
+    </div>
+</div>
+<a href="{{ path('app_home') }}">Réinitialiser les filtres</a>
+
+
+<section id="cards-list" class="d-flex mt-5 mb-3 mx-5">
+    {% for property in filters |slice(0,4)%}
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <div class="d-flex">
+            <p class="card-text pe-5">Type : {{property.typeLocal}}</p>
+            <p class="card-text pe-5">Localisation : {{property.codePostal}} </p>
+            <p class="card-text pe-5">surface : {{property.surfaceReelleBati}} m2</p>
+        </div>
+        <a href="#" class="btn btn-primary">Plus de détails</a>
+      </div>
+    </div>
+    {% endfor %}
+    
+</section>
+
+{% endblock %}
