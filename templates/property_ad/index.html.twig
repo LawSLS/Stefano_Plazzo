@@ -5,4 +5,15 @@
 {% block body %}
 <h1>{{titlePage}}</h1>
 
+<section>
+    <div class="col-3 me-3">
+        {{form_label(form.nature_mutation, 'Nature')}}
+            {{form_widget(form.nature_mutation)}}
+    </div>
+    <div class="col-3 me-3">
+        {{form_label(form.no_voie, 'Numéro de la voie')}}
+            {{form_widget(form.no_voie)}}
+    </div>
+</section>
+
 {% endblock %}
