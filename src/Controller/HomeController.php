@@ -123,9 +123,13 @@ class HomeController extends AbstractController
             $superficie = $property->getSurfaceReelleBati();
             $code_postal = $property->getCodePostal();
             $nb_pieces = $property->getNbPieces();
+            $propertyValue = $property->getValeurFonciere();
 
-            // Check both conditions
-            if ($superficie >= $min_area && $superficie <= $max_area && ($zip === '' || $code_postal === $zip) && ($roomNb === 0 || $nb_pieces === $roomNb)) {
+            
+            if (($superficie >= $min_area && $superficie <= $max_area )
+            && ($zip === '' || $code_postal === $zip) 
+            && ($roomNb === 0 || $nb_pieces === $roomNb) 
+            &&($propertyValue >= $min_price && $propertyValue <= $max_price)) {
                 $result[] = $property;
             }
         }
