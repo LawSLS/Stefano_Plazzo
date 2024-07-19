@@ -93,14 +93,14 @@
 <a href="{{ path('app_home') }}">Réinitialiser les filtres</a>
 
 
-<section id="cards-list" class="d-flex mt-5 mb-3 mx-5">
-    {% for property in filters |slice(0,4)%}
-    <div class="card">
+<section id="cards-list" class="d-flex flex-wrap gap-2 mt-5 mb-3 mx-5">
+    {% for property in pagination.items%}
+    <div class="card shadow">
       <img src="..." class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <div class="d-flex">
-            <p class="card-text pe-5">Type : {{property.typeLocal}}</p>
+            <p class="card-text pe-5">Prix : {{property.valeurFonciere}}</p>
             <p class="card-text pe-5">Localisation : {{property.codePostal}} </p>
             <p class="card-text pe-5">surface : {{property.surfaceReelleBati}} m2</p>
         </div>
@@ -110,5 +110,8 @@
     {% endfor %}
     
 </section>
+<div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 
 {% endblock %}

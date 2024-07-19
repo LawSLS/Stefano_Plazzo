@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<section id="cards-list" class="d-flex flex-wrap mt-5 mb-3 mx-5">
+<section id="cards-list" class="d-flex gap-2 flex-wrap mt-5 mb-3 mx-5">
 {% for property in pagination.items%}
 
- <div class="card">
+ <div class="card shadow">
       <img src="..." class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">Card title</h5>

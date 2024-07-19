@@ -28,6 +28,7 @@ class HomeController extends AbstractController
             $request->query->getInt('page', 1),
             12
         );
+
         $properties = $em->getRepository(ParisValeurFonciere::class)->findAll();
       
         
@@ -40,7 +41,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/home/filter', name: 'app_home_filter')]
-    public function filterByArea(EntityManagerInterface $em, Request $request) : Response
+    public function filterByArea(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator) : Response
     {
         $form = $this->createForm(AreaFilterType::class);
         $form->handleRequest($request);
@@ -131,13 +132,18 @@ class HomeController extends AbstractController
      
         $filteredProperties = $result;
         
-     
+        $pagination = $paginator->paginate(
+            $filteredProperties,
+            $request->query->getInt('page', 1),
+            12
+        );
         
         return $this->render('home/filter.html.twig', [
             'filterAreaForm' => $form->createView(),
             'filterZipForm' => $zipForm->createView(),
             'filterRoomForm' => $roomForm->createView(),
             'filterPriceForm' => $priceForm->createView(),
+            'pagination' => $pagination,
             'filters' => $filteredProperties,
         ]);
     }
