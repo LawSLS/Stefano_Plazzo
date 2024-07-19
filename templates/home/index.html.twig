@@ -1,5 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<section id="cards-list" class="d-flex mt-5 mb-3 mx-5">
+{% for property in properties |slice(0,4) %}
 
+ <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <div class="d-flex">
+            <p class="card-text pe-5">Type : {{property.typeLocal}}</p>
+            <p class="card-text pe-5">Localisation : {{property.codePostal}} </p>
+            <p class="card-text pe-5">surface : {{property.surfaceReelleBati}} m2</p>
+        </div>
+        <a href="#" class="btn btn-primary">Plus de détails</a>
+      </div>
+    </div>
+    
+{% endfor %}
+</section>
 {% endblock %}
