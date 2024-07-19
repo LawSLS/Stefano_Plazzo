@@ -23,3 +23,8 @@ body {
 footer ul {
     list-style-type: none;
 }
+
+
+.table {
+    width: 25%;
+}
