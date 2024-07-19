@@ -53,10 +53,19 @@ class DashoardController extends AbstractController
         $userRepository = $em->getRepository(User::class);
         $users = $userRepository->findAll();
 
+        $reflect = new ReflectionClass($users[0]);
+        $properties = $reflect->getProperties();
+        $head = [];
+        foreach($properties as $property){
+            $head[] = $property->getName();
+        }
 
 
         return $this->render('dashoard/users.html.twig', [
             'titlePage' => $title,
+            'users' => $users,
+            'head' => $head,
         ]);
     }
+
 }

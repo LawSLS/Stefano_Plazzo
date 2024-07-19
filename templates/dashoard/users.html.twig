@@ -12,11 +12,32 @@
     <table class="table table-sm">
         <thead>
             <tr>
-            
+            {% for header in head %}
+                 <th>{{header}}</th>
+            {% endfor %}
             </tr>
         </thead>
         <tbody>
-            
+            <tr>
+                {% for user in users %}
+                    <th>{{user.id}}</th>
+                    <th>{{user.email}}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>{{user.telephone}}</th>
+                    <th>{{user.noVoieUser}}</th>
+                    <th>{{user.voieUser}}</th>
+                    <th>{{user.typeVoieUser}}</th>
+                    <th>{{user.codePostalUser}}</th>
+                    <th>{{user.country}}</th>
+                    <th>{{user.communeUser}}</th>
+                    <th>{{user.codeDepartementUser}}</th>
+                    <th></th>
+                    <th>{{user.nom}}</th>
+                    <th>{{user.prenom}}</th>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
 {% endblock %}

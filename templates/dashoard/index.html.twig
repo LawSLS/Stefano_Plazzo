@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for bien in biens | slice(1,3) %}
+            {% for bien in biens | slice(0,1) %}
             <tr>
                 <th>{{bien.id}}</th>
                 <th>{{bien.natureMutation}}</th>
@@ -38,7 +38,7 @@
                 <th>{{bien.description}}</th>
                 <th>{{bien.dPE}}</th>
                 <th>{{bien.prixVente}}</th>
-                <th></th>
+                <th>{{bien.images}}</th>
                 <th>{{bien.dateCreationAnnonce}}</th>
                 <th>{{bien.dateDesactivationAnnonce}}</th>
                 <th>{{bien.dateMutation}}</th>
