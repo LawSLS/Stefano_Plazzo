@@ -8,6 +8,7 @@ use App\Form\PriceFilterType;
 use App\Form\RoomNbFilterType;
 use App\Form\ZipFilterType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,16 +19,23 @@ use Symfony\Component\HttpFoundation\Request;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(EntityManagerInterface $em): Response
+    public function index(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
         $titlePage = "Stefano Plazzo";
+        $qb = $em->getRepository(ParisValeurFonciere::class)->createQueryBuilder('p');
+        $pagination = $paginator->paginate(
+            $qb,
+            $request->query->getInt('page', 1),
+            12
+        );
         $properties = $em->getRepository(ParisValeurFonciere::class)->findAll();
       
         
         
         return $this->render('home/index.html.twig', [
             'titlePage' => $titlePage,
-            'properties' => $properties
+            'properties' => $properties,
+            'pagination' => $pagination,
         ]);
     }
 
