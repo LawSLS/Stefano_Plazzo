@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	
+
 
 	<div class="container">
 		<div class="row">
@@ -41,8 +41,11 @@
 		<div class="row mt-4">
 			<div class="col-6">
 				<div class="description">
-					<h4>Un appartement</h4>
-					<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+					<h4>Type de bien : {{property.typeLocal}} </h4>
+					<h4>Prix : {{price}}&nbsp;€</h4>
+					<p>Superficie : {{property.surfaceReelleBati}}&nbsp;m²</p>
+					<p>Arrondissement : {{property.codePostal}}</p>
+					<p>Description : Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
 						                    Quo, est labore! Aliquam, nostrum? Dolorum vitae nostrum quibusdam rerum minus aliquam laborum, 
 						                    sequi aut eveniet aliquid repudiandae quae nisi excepturi exercitationem.</p>
                                             <hr>
