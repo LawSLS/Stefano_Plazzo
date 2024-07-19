@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<section id="cards-list" class="d-flex mt-5 mb-3 mx-5">
-{% for property in properties |slice(0,4) %}
+<section id="cards-list" class="d-flex flex-wrap mt-5 mb-3 mx-5">
+{% for property in pagination.items%}
 
  <div class="card">
       <img src="..." class="card-img-top" alt="...">
@@ -19,4 +19,7 @@
     
 {% endfor %}
 </section>
+ <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}
