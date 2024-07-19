@@ -34,6 +34,10 @@ main .d-flex.justify-content-center button {
   color: white;
 }
 
+.logo {
+    width: 8rem;
+}
+
 .title {
   color: #fb9102;
   font-size: xx-large;
