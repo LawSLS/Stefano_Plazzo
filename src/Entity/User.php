@@ -21,23 +21,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-    /**
-     * @var list<string> The user roles
-     */
+    #[ORM\Column(length: 255)]
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lastName = null;
+
     #[ORM\Column]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
     private ?string $password = null;
-
-    /**
-     * @var Collection<int, ParisValeurFonciere>
-     */
-    #[ORM\OneToMany(targetEntity: ParisValeurFonciere::class, mappedBy: 'user')]
-    private Collection $parisValeurFoncieres;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $telephone = null;
@@ -66,6 +60,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?bool $is_active = null;
 
+    #[ORM\OneToMany(targetEntity: ParisValeurFonciere::class, mappedBy: 'user')]
+    private Collection $parisValeurFoncieres;
+
     public function __construct()
     {
         $this->parisValeurFoncieres = new ArrayCollection();
@@ -88,6 +85,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): static
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): static
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -98,23 +119,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     *
-     * @return list<string>
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -122,9 +134,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
@@ -137,43 +146,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    /**
-     * @return Collection<int, ParisValeurFonciere>
-     */
-    public function getParisValeurFoncieres(): Collection
-    {
-        return $this->parisValeurFoncieres;
-    }
-
-    public function addParisValeurFonciere(ParisValeurFonciere $parisValeurFonciere): static
-    {
-        if (!$this->parisValeurFoncieres->contains($parisValeurFonciere)) {
-            $this->parisValeurFoncieres->add($parisValeurFonciere);
-            $parisValeurFonciere->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParisValeurFonciere(ParisValeurFonciere $parisValeurFonciere): static
-    {
-        if ($this->parisValeurFoncieres->removeElement($parisValeurFonciere)) {
-            // set the owning side to null (unless already changed)
-            if ($parisValeurFonciere->getUser() === $this) {
-                $parisValeurFonciere->setUser(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getTelephone(): ?string
@@ -280,6 +256,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActive(bool $is_active): static
     {
         $this->is_active = $is_active;
+
+        return $this;
+    }
+
+    public function getParisValeurFoncieres(): Collection
+    {
+        return $this->parisValeurFoncieres;
+    }
+
+    public function addParisValeurFonciere(ParisValeurFonciere $parisValeurFonciere): static
+    {
+        if (!$this->parisValeurFoncieres->contains($parisValeurFonciere)) {
+            $this->parisValeurFoncieres->add($parisValeurFonciere);
+            $parisValeurFonciere->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParisValeurFonciere(ParisValeurFonciere $parisValeurFonciere): static
+    {
+        if ($this->parisValeurFoncieres->removeElement($parisValeurFonciere)) {
+            if ($parisValeurFonciere->getUser() === $this) {
+                $parisValeurFonciere->setUser(null);
+            }
+        }
 
         return $this;
     }

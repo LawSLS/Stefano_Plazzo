@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription
+{% endblock %}
+
+{% block body %}
+	<main class="flex-fill d-flex align-items-center justify-content-center align-items-center m-5">
+		<div class="d-flex flex-column bg-dark-subtle align-items-center justify-content-center p-5 rounded-2 w-50 register-card">
+			<div class="example-wrapper">
+				<h1>Créer un compte</h1>
+			</div>
+			<div>
+				<p>Vous avez déjà un compte ?
+					<a href="{{ path('app_connexion') }}">Connectez-vous !</a>
+				</p>
+				{{ form_start(registrationForm) }}
+				{{ form_errors(registrationForm) }}
+				<div class="mb-3">
+					{{ form_row(registrationForm.firstName) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.lastName) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.email) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.plainPassword.first) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.plainPassword.second) }}
+				</div>
+				<div class="mb-3">
+					<button class="btn btn-primary">Register</button>
+				</div>
+				{{ form_end(registrationForm) }}
+				{% for message in app.flashes('error') %}
+					<div class="alert alert-danger">
+						{{ message }}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</main>
+{% endblock %}
