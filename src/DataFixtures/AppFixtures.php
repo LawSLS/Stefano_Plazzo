@@ -45,8 +45,16 @@ class AppFixtures extends Fixture
             $manager->persist($bienImmo);
         }
 
-        $manager->flush();
+        $manager->flush(); 
     }
+/***** Autre manière de faire en ligne de commande (ici cmd windows) ********
 
+"C:\MAMP\bin\mysql\bin\mysql.exe" -u root -p db_sp < "C:\Users\andre\Desktop\paris_valeur_fonciere.sql"
 
+C:\MAMP\bin\mysql\bin\mysql.exe -> chemin de mysql sur votre machine
+-u root -> -u pour utilisateur et root pour le nom d'utilisateur que vous avez definit sur mysql
+-p db_sp -> -p vous demandera votre mot de passe et enfin notre le nom de notre bdd db_sp
+C:\Users\andre\Desktop\paris_valeur_fonciere.sql -> chemin du fichier sur votre machine
+
+*/
  }

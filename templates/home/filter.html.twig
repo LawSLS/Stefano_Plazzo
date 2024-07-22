@@ -1,53 +1,80 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}{% endblock %}
-
 {% block body %}
-
-	<div class="filterButtons d-flex mt-3 justify-content-between">
+	<div class="filterButtons d-flex mt-3 justify-content-around">
 		<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#filterModal">
-			Superficie
+			{% if min_area or max_area %}
+				surface: min:
+				{{ min_area }}
+				- max:
+				{{ max_area }}
+			{% else %}
+				Superficie
+			{% endif %}
 		</button>
 		<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#zipModal">
-			Code postal
+			{% if zip %}
+				code postal:
+				{{ zip }}
+			{% else %}
+				code postal
+			{% endif %}
 		</button>
 		<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#roomModal">
-			Nombre de pièces
+			{% if nb_pieces %}
+				nombre de piecè(s):
+				{{ nb_pieces }}
+			{% else %}
+				nombre de pièces
+			{% endif %}
 		</button>
 		<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#priceModal">
-			Prix du bien
+			{% if min_price or max_price %}
+				Prix: min:
+				{{ min_price }}
+				- max:
+				{{ max_price }}
+			{% else %}
+				Prix du bien
+			{% endif %}
 		</button>
 	</div>
-
 	<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="filterModalLabel">Surface à filtrer</h5>
+					<h5 class="modal-title" id="filterModalLabel">
+						Surface à filtrer
+					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					{{ form_start(filterAreaForm) }}
 					{{ form_row(filterAreaForm.min_area) }}
 					{{ form_row(filterAreaForm.max_area) }}
-					<button type="submit" class="btn btn-primary">Filter</button>
+					<button type="submit" class="btn btn-primary">
+						Filter
+					</button>
 					{{ form_end(filterAreaForm) }}
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<div class="modal fade" id="zipModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="filterModalLabel">Code postal</h5>
+					<h5 class="modal-title" id="filterModalLabel">
+						Code postal
+					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					{{ form_start(filterZipForm) }}
 					{{ form_row(filterZipForm.code_postal) }}
-					<button type="submit" class="btn btn-primary">Filter</button>
+					<button type="submit" class="btn btn-primary">
+						Filter
+					</button>
 					{{ form_end(filterZipForm) }}
 				</div>
 			</div>
@@ -57,13 +84,17 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="filterModalLabel">Nombre de pièces</h5>
+					<h5 class="modal-title" id="filterModalLabel">
+						Nombre de pièces
+					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					{{ form_start(filterRoomForm) }}
 					{{ form_row(filterRoomForm.nb_pieces) }}
-					<button type="submit" class="btn btn-primary">Filter</button>
+					<button type="submit" class="btn btn-primary">
+						Filter
+					</button>
 					{{ form_end(filterRoomForm) }}
 				</div>
 			</div>
@@ -73,45 +104,63 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="filterModalLabel">Prix du bien</h5>
+					<h5 class="modal-title" id="filterModalLabel">
+						Prix du bien
+					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					{{ form_start(filterPriceForm) }}
 					{{ form_row(filterPriceForm.min_price) }}
 					{{ form_row(filterPriceForm.max_price) }}
-					<button type="submit" class="btn btn-primary">Filter</button>
+					<button type="submit" class="btn btn-primary">
+						Filter
+					</button>
 					{{ form_end(filterPriceForm) }}
 				</div>
 			</div>
 		</div>
 	</div>
-	<a href="{{ path('app_home') }}">Réinitialiser les filtres</a>
-
-
-    <div class="container mt-5 mb-3">
-    <div class="row d-flex no-gutters">
-        {% for property in pagination.items %}
-            <div class="col-md-3 mb-3">
-                <div class="card shadow cardHome">
-                    <img src={{ image }} class="card-img-top" alt="un appartement">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <div>
-                            <p class="card-text">Prix : {{ property.valeurFonciere }}</p>
-                            <p class="card-text">Localisation : {{ property.codePostal }}</p>
-                            <p class="card-text">Surface : {{ property.surfaceReelleBati }} m²</p>
-                        </div>
-                        <a href={{ path('app_pdp', { 'id': property.id }) }} class="btn btn-primary">Plus de détails</a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
+	<div class="resetFilter mt-2">
+		<a href="{{ path('app_home_filter') }}">
+			Réinitialiser les filtres
+		</a>
+	</div>
+	<div class="container mt-5 mb-3">
+		<div class="row d-flex no-gutters">
+			{% for property in pagination.items %}
+				<div class="col-md-3 mb-3">
+					<div class="card shadow cardHome">
+						<img src={{ image }} class="card-img-top" alt="un appartement">
+						<div class="card-body">
+							<h5 class="card-title">
+								Card title
+							</h5>
+							<div>
+								<p class="card-text">
+									Prix :
+									{{ property.valeurFonciere }}
+								</p>
+								<p class="card-text">
+									Localisation :
+									{{ property.codePostal }}
+								</p>
+								<p class="card-text">
+									Surface :
+									{{ property.surfaceReelleBati }}
+									m²
+								</p>
+							</div>
+							<a href={{ path('app_pdp', { 'id': property.id } ) }} class="btn btn-primary">
+								Plus de détails
+							</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 	<div class="navigation">
 		{{ knp_pagination_render(pagination) }}
 	</div>
-
 {% endblock %}
-

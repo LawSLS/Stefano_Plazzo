@@ -102,8 +102,9 @@ h1 {
   max-width: 100%;
   height: auto;
 }
-
-
 .table {
     width: 25%;
+}
+.hrHome{
+  text-align: center;
 }
