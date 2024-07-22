@@ -14,7 +14,7 @@ class AppFixtures extends Fixture
         $dbUser = "root";
         $dbPwd = "root";
 
-        $pdoDb = new PDO('mysql:host=localhost; dbname=recup_db', $dbUser, $dbPwd);
+        $pdoDb = new PDO('mysql:host=127.0.0.1:3306; dbname=recup_db', $dbUser, $dbPwd);
         $smt = $pdoDb->prepare('SELECT * FROM paris_valeur_fonciere');
         $smt->execute();
         $immos = $smt->fetchAll();
@@ -47,4 +47,6 @@ class AppFixtures extends Fixture
 
         $manager->flush();
     }
-}
+
+
+ }

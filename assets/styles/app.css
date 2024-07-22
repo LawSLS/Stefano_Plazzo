@@ -1,27 +1,82 @@
 body {
-    background-color: #fff;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.navbar, footer {
-    background-color: #6f42c1;
-    color: #FFF;
+.btn {
+  border: none;
+}
+
+header {
+  background-color: #6f42c1;
+  color: white;
+}
+header a{
+  color:white !important;
+}
+
+header img {
+  height: 100px;
+}
+
+header .btn {
+  background-color: #fb9102;
+  color: white;
+}
+footer {
+  background-color: #6f42c1;
+  color: white;
+}
+main .d-flex.justify-content-center button {
+  background-color: #6f42c1;
+  color: white;
 }
 
 .logo {
     width: 8rem;
 }
 
-.nav-link {
-    color:#FFF;
+.title {
+  color: #fb9102;
+  font-size: xx-large;
 }
 
-
-.card {
-    width: 38rem;
+.footer {
+  background-color: #6f42c1;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  height: 116px;
+}
+/* Page PDP */
+.carousel{
+  width: 800px;
+}
+.carousel-item {
+  height: 600px; 
+  
 }
 
-footer ul {
-    list-style-type: none;
+.carousel-item img {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.carousel-item {
+  transition: transform 1s ease-in-out;
+}
+
+.carousel-fade .active.carousel-item-start,
+.carousel-fade .active.carousel-item-end {
+  transition: opacity 0s 2.6s;
+}
+.cardHome img{
+  max-width: 100%;
+  height: auto;
+ 
 }
 
 

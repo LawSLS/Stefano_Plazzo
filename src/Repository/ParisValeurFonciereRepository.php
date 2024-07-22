@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\ParisValeurFonciere;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @extends ServiceEntityRepository<ParisValeurFonciere>
@@ -15,7 +16,8 @@ class ParisValeurFonciereRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ParisValeurFonciere::class);
     }
-
+    
+    
     //    /**
     //     * @return ParisValeurFonciere[] Returns an array of ParisValeurFonciere objects
     //     */
@@ -40,4 +42,5 @@ class ParisValeurFonciereRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
 }
