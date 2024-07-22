@@ -3,10 +3,16 @@
 {% block title %}{{titlePage}}{% endblock %}
 
 {% block body %}
-    
 <h1 class="text-center">Liste des biens dans la BDD</h1>
+
+<section class="d-flex justify-content-center">
+    <p><a href={{path('app_dashoard_user')}} class="btn btn-primary me-5">Liste des users</a></p>
+    <p><a href={{path('app_dashoard')}} class="btn btn-primary">Dashboard</a></p>
+</section>
+
+
     <section id="bienAdminList">
-        {% for bien in biens | slice(0,5) %}
+        {% for bien in biens |slice(0,5) %}
         <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
             <h3 class="me-5 px-3 text-end">{{head[0]}} : {{bien.id}}</h3>
             <div class="d-flex px-3 py-2">
@@ -26,8 +32,8 @@
                 <p class="me-5 px-3">{{head[23]}} : {{bien.valeurFonciere}}</p>
             </div>
             <div class="d-flex justify-content-end">
-                <button>View</button>
-                <button>Update</button>
+                <a href={{path('app_show_bien', {id: bien.id})}} class="btn btn-primary me-2">View</a>
+                <a href={{path('app_edit_bien', {id: bien.id})}} class="btn btn-primary me-2">Update</a>
                 <button>Delete</button>
             </div>
         </div>

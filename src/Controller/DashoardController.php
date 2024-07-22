@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\ParisValeurFonciere;
 use App\Entity\User;
+use App\Form\PropertyAdType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
+use Knp\Component\Pager\PaginatorInterface;
 use ReflectionClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -70,7 +73,7 @@ class DashoardController extends AbstractController
     }
 
     #[Route('/dashboard/biens', name: 'app_dashboard_bien')]
-    public function biens (EntityManagerInterface $em): Response
+    public function biens (EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
 
         $title = "Dashboard Admin biens";
@@ -85,13 +88,50 @@ class DashoardController extends AbstractController
             $head[] = $property->getName();
         }
 
-        
 
         return $this->render('dashoard/biens.html.twig', [
             'titlePage' => $title,
             'biens' => $biens,
             'head' => $head,
         ]);
+    }
+
+    #[Route('/dashboard/bien/{id}', name: 'app_show_bien')]
+    public function showBien(ParisValeurFonciere $bien): Response
+    {
+        $title = 'Bien';
+
+        return $this->render('dashoard/showBien.html.twig', [
+            'bien' => $bien,
+            'titlePage' => $title,
+        ]);
+    }
+
+    #[Route('/dashboard/bien/{id}/edit', name: 'app_edit_bien')]
+    public function editBien(ParisValeurFonciere $bien, EntityManagerInterface $em, Request $request): Response
+    {
+        $title = 'Edit bien';
+
+        $form = $this->createForm(PropertyAdType::class, $bien);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($bien);
+            $em->flush();
+        }
+
+
+        return $this->render('dashoard/editBien.html.twig', [
+            'titlePage' => $title,
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/dashboard/bien/delete/{id}', name: 'app_delete_bien')]
+    public function deleteBien(ParisValeurFonciere $bien, EntityManagerInterface $em, Request $request): Response
+    {
+
+
+        return $this->redirectToRoute('app_dashoard');
     }
 
 }
