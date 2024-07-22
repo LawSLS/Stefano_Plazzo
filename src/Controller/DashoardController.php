@@ -33,15 +33,16 @@ class DashoardController extends AbstractController
             $head[] = $property->getName();
         }
 
+        $userRepository = $em->getRepository(User::class);
+        $users = $userRepository->findAll();
 
+        //dd($head);
         
-        dd($head);
-        
-
         return $this->render('dashoard/index.html.twig', [
             'titlePage' => $title,
             'biens' => $biens,
             'head' => $head,
+            'users' => $users,
         ]);
     }
 
@@ -83,6 +84,8 @@ class DashoardController extends AbstractController
         foreach($properties as $property){
             $head[] = $property->getName();
         }
+
+        
 
         return $this->render('dashoard/biens.html.twig', [
             'titlePage' => $title,
