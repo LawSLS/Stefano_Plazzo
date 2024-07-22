@@ -1,5 +1,5 @@
 <?php 
-namespace LaPasserelle\ModelsML;
+namespace App\Service;
 
 use PDO;
 use Rubix\ML\Datasets\Labeled;
@@ -31,7 +31,7 @@ class ModelDVF {
     // TABLE SQL DANS LAQUELLE ALLER CHERCHER LES DATAS
     const SQL_TABLENAME         = 'paris_valeur_fonciere';
     // DOSSIER DE DESTINATION DES MODÈLES SAUVEGARDÉS
-    const DIR_MODELS            = 'saved_models';
+    const DIR_MODELS            = '../saved_models';
     // PRÉFIX À AJOUTER AUX NOMS DES MODÈLES LORS D'UN RENNOMAGE
     const MODEL_NAME_PREFIX     = 'dvf';    
 
@@ -227,7 +227,9 @@ class ModelDVF {
      * @return void
      */
     function loadSavedModel(string $filename){
+       
         $this->estimator = PersistentModel::load(new Filesystem(self::DIR_MODELS . '/' . $filename));
+
         $this->logger->info("Modèle $filename chargé");
     }
 
@@ -245,6 +247,7 @@ class ModelDVF {
         // lance la prédiction
         $this->logger->info('Prédictions en cours');
         $predictions = $this->estimator->predict($dataset);
+        
 
         return round($predictions[0], 2);
     }
