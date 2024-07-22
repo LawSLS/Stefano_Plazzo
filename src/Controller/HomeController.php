@@ -21,12 +21,15 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
+
+        $imgPath = "https://static.wixstatic.com/media/3997c6_979b9769a23e4aaa8ac2e32c202c79ae~mv2.jpg
+        /v1/fill/w_640,h_434,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/3997c6_979b9769a23e4aaa8ac2e32c202c79ae~mv2.jpg";
         $titlePage = "Stefano Plazzo";
         $qb = $em->getRepository(ParisValeurFonciere::class)->createQueryBuilder('p');
         $pagination = $paginator->paginate(
             $qb,
             $request->query->getInt('page', 1),
-            12
+            6
         );
 
         $properties = $em->getRepository(ParisValeurFonciere::class)->findAll();
@@ -35,6 +38,7 @@ class HomeController extends AbstractController
         
         return $this->render('home/index.html.twig', [
             'titlePage' => $titlePage,
+            'image' => $imgPath,
             'properties' => $properties,
             'pagination' => $pagination,
         ]);

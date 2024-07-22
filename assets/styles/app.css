@@ -73,3 +73,8 @@ main .d-flex.justify-content-center button {
 .carousel-fade .active.carousel-item-end {
   transition: opacity 0s 2.6s;
 }
+.cardHome img{
+  max-width: 100%;
+  height: auto;
+ 
+}
