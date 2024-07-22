@@ -1,32 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{titlePage}}{% endblock %}
-
 {% block body %}
-
-<section id="informations" class="m-5">
-    <h1>Stefano Plazzo Escroc Immo</h1>
-    <p>Bienvenu sur le site Escroc Immo, vous vendez nous vous escrocquons!</p>
-</section>
-
-<section id="filters">
-    <h2></h2>
-</section>
-
-<section id="cards-list" class="d-flex mt-5 mb-3 mx-5">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <div class="d-flex">
-            <p class="card-text pe-5">Type : </p>
-            <p class="card-text pe-5">Localisation : </p>
-            <p class="card-text pe-5">Prix : </p>
-        </div>
-        <a href="#" class="btn btn-primary">Plus de détails</a>
-      </div>
+<div class="container mt-5 mb-3">
+    <div class="row d-flex gap-2 flex-wrap">
+        {% for property in pagination.items %}
+            <div class="col-md-3 mb-3">
+                <div class="card shadow cardHome">
+                    <img src={{ image }} class="card-img-top" alt="un appartement">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <div>
+                            <p class="card-text">Type : {{ property.typeLocal }}</p>
+                            <p class="card-text">Localisation : {{ property.codePostal }}</p>
+                            <p class="card-text">Surface : {{ property.surfaceReelleBati }} m²</p>
+                        </div>
+                        <a href={{ path('app_pdp', { 'id': property.id }) }} class="btn btn-primary">Plus de détails</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-    
-</section>
+</div>
 
+	
+
+	<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
 {% endblock %}

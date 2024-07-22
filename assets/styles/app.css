@@ -51,6 +51,10 @@ main .d-flex.justify-content-center button {
   color: white;
 }
 
+.logo {
+  width: 8rem;
+}
+
 .title {
   color: #fb9102;
   font-size: xx-large;
@@ -90,4 +94,8 @@ main .d-flex.justify-content-center button {
 /*PAGE INSCRIPTION*/
 h1 {
   color: #fb9102;
+}
+.cardHome img {
+  max-width: 100%;
+  height: auto;
 }

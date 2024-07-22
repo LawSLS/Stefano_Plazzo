@@ -60,12 +60,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?bool $is_active = null;
 
-    #[ORM\OneToMany(targetEntity: ParisValeurFonciere::class, mappedBy: 'user')]
-    private Collection $parisValeurFoncieres;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $nom = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $prenom = null;
 
     public function __construct()
     {
-        $this->parisValeurFoncieres = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -260,28 +263,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getParisValeurFoncieres(): Collection
+    public function getNom(): ?string
     {
-        return $this->parisValeurFoncieres;
+        return $this->nom;
     }
 
-    public function addParisValeurFonciere(ParisValeurFonciere $parisValeurFonciere): static
+    public function setNom(?string $nom): static
     {
-        if (!$this->parisValeurFoncieres->contains($parisValeurFonciere)) {
-            $this->parisValeurFoncieres->add($parisValeurFonciere);
-            $parisValeurFonciere->setUser($this);
-        }
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function removeParisValeurFonciere(ParisValeurFonciere $parisValeurFonciere): static
+    public function getPrenom(): ?string
     {
-        if ($this->parisValeurFoncieres->removeElement($parisValeurFonciere)) {
-            if ($parisValeurFonciere->getUser() === $this) {
-                $parisValeurFonciere->setUser(null);
-            }
-        }
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): static
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }
