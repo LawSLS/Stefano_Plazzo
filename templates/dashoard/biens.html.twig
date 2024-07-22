@@ -8,11 +8,10 @@
     <section id="bienAdminList">
         {% for bien in biens | slice(0,5) %}
         <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
+            <h3 class="me-5 px-3 text-end">{{head[0]}} : {{bien.id}}</h3>
             <div class="d-flex px-3 py-2">
-                <p class="me-5 px-3">{{head[0]}} : {{bien.id}}</p>
                 <p class="me-5 px-3">{{head[1]}} : {{bien.natureMutation}}</p>
                 <p class="me-5 px-3">{{head[2]}} : {{bien.noVoie}}</p>
-                <p class="me-5 px-3">{{head[3]}} : {{bien.bTQ}}</p>
                 <p class="me-5 px-3">{{head[4]}} : {{bien.typeVoie}}</p>
                 <p class="me-5 px-3">{{head[5]}} : {{bien.codeVoie}}</p>
                 <p class="me-5 px-3">{{head[6]}} : {{bien.voie}}</p>
@@ -20,30 +19,13 @@
                 <p class="me-5 px-3">{{head[8]}} : {{bien.commune}}</p>
             </div>
             <div class="d-flex px-3 py-2">
-                <p class="me-5 pe-3">{{head[9]}} : {{bien.section}}</p>
-                <p class="me-5 pe-3">{{head[10]}} : {{bien.nbLots}}</p>
-                <p class="me-5 pe-3">{{head[11]}} : {{bien.codeTypeLocal}}</p>
-                <p class="me-5 pe-3">{{head[12]}} : {{bien.surfaceReelleBati}}</p>
-                <p class="me-5 pe-3">{{head[13]}} : {{bien.nbPieces}}</p>
-                <p class="me-5 pe-3">{{head[14]}} : {{bien.surfaceTerrain}}</p>
-                <p class="me-5 pe-3">{{head[15]}} : {{bien.description}}</p>
-                <p class="me-5 pe-3">{{head[16]}} : {{bien.dpe}}</p>
-                <p class="me-5 pe-3">{{head[17]}} : {{bien.prixVente}}</p>
+                <p class="me-5 px-3">{{head[19]}} : {{bien.dateCreationAnnonce}}</p>
+                <p class="me-5 px-3">{{head[20]}} : {{bien.dateDesactivationAnnonce}}</p>
+                <p class="me-5 px-3">{{head[21]}} : {{bien.dateMutation}}</p>
+                <p class="me-5 px-3">{{head[22]}} : {{bien.user}}</p>
+                <p class="me-5 px-3">{{head[23]}} : {{bien.valeurFonciere}}</p>
             </div>
-            <div class="d-flex px-3 py-2">
-                <p class="me-5 pe-3">{{head[18]}} : {{bien.images}}</p>
-                <p class="me-5 pe-3">{{head[19]}} : {{bien.dateCreationAnnonce}}</p>
-                <p class="me-5 pe-3">{{head[20]}} : {{bien.dateDesactivationAnnonce}}</p>
-                <p class="me-5 pe-3">{{head[21]}} : {{bien.dateMutation}}</p>
-                <p class="me-5 pe-3">{{head[22]}} : {{bien.user}}</p>
-            </div>
-            <div class="d-flex px-3 py-2">
-                <p class="me-5 pe-3">{{head[23]}} : {{bien.valeurFonciere}}</p>
-                <p class="me-5 pe-3">{{head[24]}} : {{bien.codeDepartement}}</p>
-                <p class="me-5 pe-3">{{head[25]}} : {{bien.codeCommune}}</p>
-                <p class="me-5 pe-3">{{head[26]}} : {{bien.typeLocal}}</p>
-            </div>
-            <div>
+            <div class="d-flex justify-content-end">
                 <button>View</button>
                 <button>Update</button>
                 <button>Delete</button>
