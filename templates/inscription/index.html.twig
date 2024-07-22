@@ -1,110 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello InscriptionController!
+{% block title %}Inscription
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
-
-
-	<div class="d-flex flex-column min-vh-100">
-		<header>
-			<nav class="navbar navbar-expand-lg bg-color">
-				<div class="container-fluid">
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
-						<img src="{{ asset('uploads/mainLogo.png') }}" alt="">
-						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-							<li class="nav-item">
-								<a class="nav-link text-white" href="#">Accueil</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-white" href="#">Estimation</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-white" href="#">Nous contacter</a>
-							</li>
-						</ul>
-						<div class="d-flex">
-							<button class="btn btn-primary me-2" href="#">Se connecter</button>
-							<button class="btn btn-secondary" href="#">S'inscrire</button>
-						</div>
-					</div>
-				</div>
-			</nav>
-		</header>
-
-
-		<div class="example-wrapper">
-			<h1>Créer un compte
-			</h1>
-
-
-		</div>
-		<div>
-			<main class="flex-fill d-flex align-items-center">
-
-				<form class="row g-3">
-					<div class="col-md-6">
-						<label for="inputFirstName" class="form-label">Prénom</label>
-						<input type="firstName" class="form-control" id="inputFirstName">
-					</div>
-					<div class="col-md-6">
-						<label for="inputName" class="form-label">Nom</label>
-						<input type="name" class="form-control" id="inputName">
-					</div>
-					<div class="col-md-6">
-						<label for="inputAdresse1" class="form-label">Adresse 1</label>
-						<input type="adresse1" class="form-control" id="inputAdresse1">
-					</div>
-					<div class="col-md-6">
-						<label for="inputAdresse2" class="form-label">Adresse 2</label>
-						<input type="adresse2" class="form-control" id="inputAdresse2">
-					</div>
-
-					<div class="col-md-6">
-						<label for="inputZip" class="form-label">Code postal</label>
-						<input type="text" class="form-control" id="inputZip">
-					</div>
-					<div class="col-md-6">
-						<label for="inputCity" class="form-label">Ville</label>
-						<input type="text" class="form-control" id="inputCity">
-					</div>
-					<div class="col-md-6">
-						<label for="inputEmail" class="form-label">Email</label>
-						<input type="text" class="form-control" id="inputEmail">
-					</div>
-					<div class="col-md-6">
-						<label for="inputPhone" class="form-label">Téléphone</label>
-						<input type="text" class="form-control" id="inputPhone">
-					</div>
-					<div class="col-12">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="gridCheck">
-							<label class="form-check-label" for="gridCheck">
-								Bla Bla
-							</label>
-						</div>
-					</div>
-					<div class="col-12">
-						<button type="submit" class="btn btn-primary">Valider</button>
-					</div>
-				</form>
+	<main class="flex-fill d-flex align-items-center justify-content-center align-items-center m-5">
+		<div class="d-flex flex-column bg-dark-subtle align-items-center justify-content-center p-5 rounded-2 w-50 register-card">
+			<div class="example-wrapper">
+				<h1>Créer un compte</h1>
 			</div>
-			<footer class="footer mt-auto"></footer>
-		</main>
-	</div>
-</div>{% endblock %}
+			<div>
+				<p>Vous avez déjà un compte ?
+					<a href="{{ path('app_connexion') }}">Connectez-vous !</a>
+				</p>
+				{{ form_start(registrationForm) }}
+				{{ form_errors(registrationForm) }}
+				<div class="mb-3">
+					{{ form_row(registrationForm.firstName) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.lastName) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.email) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.plainPassword.first) }}
+				</div>
+				<div class="mb-3">
+					{{ form_row(registrationForm.plainPassword.second) }}
+				</div>
+				<div class="mb-3">
+					<button class="btn btn-primary">Register</button>
+				</div>
+				{{ form_end(registrationForm) }}
+				{% for message in app.flashes('error') %}
+					<div class="alert alert-danger">
+						{{ message }}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</main>
+{% endblock %}
