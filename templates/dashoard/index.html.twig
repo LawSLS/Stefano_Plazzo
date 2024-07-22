@@ -3,53 +3,6 @@
 {% block title %}{{titlePage}}{% endblock %}
 
 {% block body %}
-    <section>
-        <a href={{path('app_dashoard')}}>Bien Immobilier</a>
-        <a href={{path('app_dashoard_user')}}>Users</a>
-    </section>
+    
 
-
-    <table class="table table-sm">
-        <thead>
-            <tr>
-            {% for header in head %}
-                 <th>{{header}}</th>
-            {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for bien in biens | slice(0,1) %}
-            <tr>
-                <th>{{bien.id}}</th>
-                <th>{{bien.natureMutation}}</th>
-                <th>{{bien.noVoie}}</th>
-                <th>{{bien.bTQ}}</th>
-                <th>{{bien.typeVoie}}</th>
-                <th>{{bien.codeVoie}}</th>
-                <th>{{bien.voie}}</th>
-                <th>{{bien.codePostal}}</th>
-                <th>{{bien.commune}}</th>
-                <th>{{bien.section}}</th>
-                <th>{{bien.nbLots}}</th>
-                <th>{{bien.codeTypeLocal}}</th>
-                <th>{{bien.surfaceReelleBati}}</th>
-                <th>{{bien.nbPieces}}</th>
-                <th>{{bien.surfaceTerrain}}</th>
-                <th>{{bien.description}}</th>
-                <th>{{bien.dPE}}</th>
-                <th>{{bien.prixVente}}</th>
-                <th>{{bien.images}}</th>
-                <th>{{bien.dateCreationAnnonce}}</th>
-                <th>{{bien.dateDesactivationAnnonce}}</th>
-                <th>{{bien.dateMutation}}</th>
-                <th>{{bien.user}}</th>
-                <th>{{bien.valeurFonciere}}</th>
-                <th>{{bien.codeDepartement}}</th>
-                <th>{{bien.codeCommune}}</th>
-                <th>{{bien.typeLocal}}</th>
-                
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 {% endblock %}

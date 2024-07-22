@@ -68,4 +68,27 @@ class DashoardController extends AbstractController
         ]);
     }
 
+    #[Route('/dashboard/biens', name: 'app_dashboard_bien')]
+    public function biens (EntityManagerInterface $em): Response
+    {
+
+        $title = "Dashboard Admin biens";
+        $bienRespository = $em->getRepository(ParisValeurFonciere::class);
+
+        $biens = $bienRespository->findAll();
+        
+        $reflect = new ReflectionClass($biens[0]);
+        $properties = $reflect->getProperties();
+        $head = [];
+        foreach($properties as $property){
+            $head[] = $property->getName();
+        }
+
+        return $this->render('dashoard/biens.html.twig', [
+            'titlePage' => $title,
+            'biens' => $biens,
+            'head' => $head,
+        ]);
+    }
+
 }
