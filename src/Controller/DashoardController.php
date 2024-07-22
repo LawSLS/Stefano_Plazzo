@@ -35,7 +35,7 @@ class DashoardController extends AbstractController
 
 
         
-        //dd($head);
+        dd($head);
         
 
         return $this->render('dashoard/index.html.twig', [

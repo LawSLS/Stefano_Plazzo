@@ -4,49 +4,51 @@
 
 {% block body %}
     
-
-
-    <table class="table table-sm">
-        <thead>
-            <tr>
-            {% for header in head %}
-                 <th>{{header}}</th>
-            {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for bien in biens | slice(0,1) %}
-            <tr>
-                <th>{{bien.id}}</th>
-                <th>{{bien.natureMutation}}</th>
-                <th>{{bien.noVoie}}</th>
-                <th>{{bien.bTQ}}</th>
-                <th>{{bien.typeVoie}}</th>
-                <th>{{bien.codeVoie}}</th>
-                <th>{{bien.voie}}</th>
-                <th>{{bien.codePostal}}</th>
-                <th>{{bien.commune}}</th>
-                <th>{{bien.section}}</th>
-                <th>{{bien.nbLots}}</th>
-                <th>{{bien.codeTypeLocal}}</th>
-                <th>{{bien.surfaceReelleBati}}</th>
-                <th>{{bien.nbPieces}}</th>
-                <th>{{bien.surfaceTerrain}}</th>
-                <th>{{bien.description}}</th>
-                <th>{{bien.dPE}}</th>
-                <th>{{bien.prixVente}}</th>
-                <th>{{bien.images}}</th>
-                <th>{{bien.dateCreationAnnonce}}</th>
-                <th>{{bien.dateDesactivationAnnonce}}</th>
-                <th>{{bien.dateMutation}}</th>
-                <th>{{bien.user}}</th>
-                <th>{{bien.valeurFonciere}}</th>
-                <th>{{bien.codeDepartement}}</th>
-                <th>{{bien.codeCommune}}</th>
-                <th>{{bien.typeLocal}}</th>
-                
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<h1 class="text-center">Liste des biens dans la BDD</h1>
+    <section id="bienAdminList">
+        {% for bien in biens | slice(0,5) %}
+        <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
+            <div class="d-flex px-3 py-2">
+                <p class="me-5 px-3">{{head[0]}} : {{bien.id}}</p>
+                <p class="me-5 px-3">{{head[1]}} : {{bien.natureMutation}}</p>
+                <p class="me-5 px-3">{{head[2]}} : {{bien.noVoie}}</p>
+                <p class="me-5 px-3">{{head[3]}} : {{bien.bTQ}}</p>
+                <p class="me-5 px-3">{{head[4]}} : {{bien.typeVoie}}</p>
+                <p class="me-5 px-3">{{head[5]}} : {{bien.codeVoie}}</p>
+                <p class="me-5 px-3">{{head[6]}} : {{bien.voie}}</p>
+                <p class="me-5 px-3">{{head[7]}} : {{bien.codePostal}}</p>
+                <p class="me-5 px-3">{{head[8]}} : {{bien.commune}}</p>
+            </div>
+            <div class="d-flex px-3 py-2">
+                <p class="me-5 pe-3">{{head[9]}} : {{bien.section}}</p>
+                <p class="me-5 pe-3">{{head[10]}} : {{bien.nbLots}}</p>
+                <p class="me-5 pe-3">{{head[11]}} : {{bien.codeTypeLocal}}</p>
+                <p class="me-5 pe-3">{{head[12]}} : {{bien.surfaceReelleBati}}</p>
+                <p class="me-5 pe-3">{{head[13]}} : {{bien.nbPieces}}</p>
+                <p class="me-5 pe-3">{{head[14]}} : {{bien.surfaceTerrain}}</p>
+                <p class="me-5 pe-3">{{head[15]}} : {{bien.description}}</p>
+                <p class="me-5 pe-3">{{head[16]}} : {{bien.dpe}}</p>
+                <p class="me-5 pe-3">{{head[17]}} : {{bien.prixVente}}</p>
+            </div>
+            <div class="d-flex px-3 py-2">
+                <p class="me-5 pe-3">{{head[18]}} : {{bien.images}}</p>
+                <p class="me-5 pe-3">{{head[19]}} : {{bien.dateCreationAnnonce}}</p>
+                <p class="me-5 pe-3">{{head[20]}} : {{bien.dateDesactivationAnnonce}}</p>
+                <p class="me-5 pe-3">{{head[21]}} : {{bien.dateMutation}}</p>
+                <p class="me-5 pe-3">{{head[22]}} : {{bien.user}}</p>
+            </div>
+            <div class="d-flex px-3 py-2">
+                <p class="me-5 pe-3">{{head[23]}} : {{bien.valeurFonciere}}</p>
+                <p class="me-5 pe-3">{{head[24]}} : {{bien.codeDepartement}}</p>
+                <p class="me-5 pe-3">{{head[25]}} : {{bien.codeCommune}}</p>
+                <p class="me-5 pe-3">{{head[26]}} : {{bien.typeLocal}}</p>
+            </div>
+            <div>
+                <button>View</button>
+                <button>Update</button>
+                <button>Delete</button>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
 {% endblock %}
