@@ -25,11 +25,13 @@ class HomeController extends AbstractController
         $imgPath = "https://static.wixstatic.com/media/3997c6_979b9769a23e4aaa8ac2e32c202c79ae~mv2.jpg
         /v1/fill/w_640,h_434,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/3997c6_979b9769a23e4aaa8ac2e32c202c79ae~mv2.jpg";
         $titlePage = "Stefano Plazzo";
+
+        // Pagination pour la home page
         $qb = $em->getRepository(ParisValeurFonciere::class)->createQueryBuilder('p');
         $pagination = $paginator->paginate(
             $qb,
             $request->query->getInt('page', 1),
-            6
+            8
         );
 
         $properties = $em->getRepository(ParisValeurFonciere::class)->findAll();
@@ -47,6 +49,7 @@ class HomeController extends AbstractController
     #[Route('/home/filter', name: 'app_home_filter')]
     public function filterByArea(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator) : Response
     {
+        // creer les formulaires
         $form = $this->createForm(AreaFilterType::class);
         $form->handleRequest($request);
 
@@ -61,7 +64,7 @@ class HomeController extends AbstractController
 
        
        
-
+        // les variables pour les filtres
         $min_area = $request->query->getInt('min_area', 0);
         $max_area = $request->query->getInt('max_area', PHP_INT_MAX);
         $zip = $request->query->get('zip', '');
@@ -69,6 +72,7 @@ class HomeController extends AbstractController
         $min_price = $request->query->getInt('min_price', 0);
         $max_price = $request->query->getInt('max_price', PHP_INT_MAX);
 
+        // filtre par superficie
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
             $min_area = $data['min_area'] ?? 0;
@@ -83,6 +87,7 @@ class HomeController extends AbstractController
 
         }
 
+        // filtre par code postal
         if($zipForm->isSubmitted() && $zipForm->isValid()){
             $data = $zipForm->getData();
             $zip = $data['code_postal'] ?? '';
@@ -95,6 +100,7 @@ class HomeController extends AbstractController
             ]);
         }
 
+        // filtre par nombre de piece
         if($roomForm->isSubmitted() && $roomForm->isValid()){
             $data = $roomForm->getData();
             $roomNb = $data['nb_pieces'] ?? 0;
@@ -107,6 +113,7 @@ class HomeController extends AbstractController
             ]);
         }
 
+        // filtre par prix
         if($priceForm->isSubmitted() && $priceForm->isValid()){
             $data = $priceForm->getData();
             $min_price = $data['min_price'] ?? 0;
@@ -120,9 +127,12 @@ class HomeController extends AbstractController
                 'max_price' => $max_price,
             ]);
         }
-        
+
+        // recuperer tous les biens et ensuite filtrer et renvoyer un tableau avec les biens qui correspondent aux filtres
         $filteredProperties = $em->getRepository(ParisValeurFonciere::class)->findAll();
         $result = [];
+        $imgPath = "https://static.wixstatic.com/media/3997c6_979b9769a23e4aaa8ac2e32c202c79ae~mv2.jpg
+        /v1/fill/w_640,h_434,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/3997c6_979b9769a23e4aaa8ac2e32c202c79ae~mv2.jpg";
         foreach ($filteredProperties as $property) {
             $superficie = $property->getSurfaceReelleBati();
             $code_postal = $property->getCodePostal();
@@ -140,6 +150,7 @@ class HomeController extends AbstractController
      
         $filteredProperties = $result;
         
+        // pagination pour la page filtres
         $pagination = $paginator->paginate(
             $filteredProperties,
             $request->query->getInt('page', 1),
@@ -152,6 +163,7 @@ class HomeController extends AbstractController
             'filterRoomForm' => $roomForm->createView(),
             'filterPriceForm' => $priceForm->createView(),
             'pagination' => $pagination,
+            'image' => $imgPath,
             'filters' => $filteredProperties,
         ]);
     }

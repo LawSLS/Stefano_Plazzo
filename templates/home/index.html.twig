@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="intro text-center">
+<h2>Trouvez votre appartement ou faites le estimer </h2>
+</div>
 <div class="container mt-5 mb-3">
-    <div class="row d-flex gap-2 flex-wrap">
+    <div class="row d-flex no-gutters">
         {% for property in pagination.items %}
             <div class="col-md-3 mb-3">
                 <div class="card shadow cardHome">

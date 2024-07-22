@@ -17,6 +17,7 @@ class ProductDetailPageController extends AbstractController
     "https://projets.cotemaison.fr/uploads/projects/5806/project_85290596cdb02bae8b_pic_1.jpg",
 "https://www.verocotrel.fr/wp-content/uploads/2017/10/tito6308.jpg"];
 
+// recuperer le bien par id
 $property = $em->getRepository(ParisValeurFonciere::class)->find($id);
 $valeur = $property->getValeurFonciere();
 
