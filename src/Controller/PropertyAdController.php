@@ -24,7 +24,22 @@ class PropertyAdController extends AbstractController
         $bien = new ParisValeurFonciere();
         $form = $this->createForm(PropertyAdType::class, $bien);
         $form->handleRequest($request);
+
+        $data = $form->getData();
+        $voie = $data->getTypeVoie();
+        $cp = $data->getCodePostal();
+        $superficie = $data->getSurfaceReelleBati();
+        $pieces = $data->getNbPieces();
+        $terrain = $data->getSurfaceTerrain();
+        $typeLocal = $data->getTypeLocal();
+
+        $model = new ModelDVF();
+
+        $model->loadSavedModel('dvf_model_84.rbx');
+        $value = $model->predict([$voie, $cp, $typeLocal, $superficie, $pieces, $terrain]);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $bien->setValeurFonciere($value);
             $em->persist($bien);
             $em->flush();
         }
@@ -53,24 +68,18 @@ class PropertyAdController extends AbstractController
         $typeLocal = $data->getTypeLocal();
         // var_dump($voie, $cp, $superficie, $pieces, $terrain, $typeLocal);
 
-        $dbUser = 'root' ;
-        $dbPwd = 'root';
+        $model = new ModelDVF();
 
-        $model = new ModelDVF(new PDO('mysql:host=localhost; dbname=db_sp', $dbUser, $dbPwd));
-
-      
-     
         $model->loadSavedModel('dvf_model_84.rbx');
         $value = $model->predict([$voie, $cp, $typeLocal, $superficie, $pieces, $terrain]);
-        var_dump($value);
+        //var_dump($value);
 
 
 
         return $this->render('property_ad/estimate.html.twig', [
             'titlePage' => $title,
             'form' => $form,
-
-            
+            'value' => $value,
         ]);
     }
 }
