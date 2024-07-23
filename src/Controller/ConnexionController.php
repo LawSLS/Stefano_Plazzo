@@ -7,18 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class ConnexionController extends AbstractController
 {
     #[Route('/connexion', name: 'app_connexion')]
-    public function index(EntityManagerInterface $em): Response
+    public function index(Security $security): Response
     {
-        $user = $em->getRepository(User::class);
-        $role =  $user->find('roles');
+        $user = $security->getUser();
         
-        if($role == 'ROLE_USER'){
-        return $this->redirect('/home');
-        }
+        
+      /*   if($user && in_array('ROLE_USER', $user->getRoles())){
+        return $this->redirectToRoute('app_home');
+        } */return $this->render('connexion/index.html.twig', [
+
+        ]);
        
     }
 
