@@ -39,6 +39,8 @@ class DashoardController extends AbstractController
         $userRepository = $em->getRepository(User::class);
         $users = $userRepository->findAll();
 
+        
+
         //dd($head);
         
         return $this->render('dashoard/index.html.twig', [
@@ -88,11 +90,17 @@ class DashoardController extends AbstractController
             $head[] = $property->getName();
         }
 
+        $pagination = $paginator->paginate(
+            $biens,
+            $request->query->getInt('page', 1),
+            15
+        );
 
         return $this->render('dashoard/biens.html.twig', [
             'titlePage' => $title,
             'biens' => $biens,
             'head' => $head,
+            'pagination' => $pagination,
         ]);
     }
 
