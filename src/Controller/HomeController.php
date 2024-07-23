@@ -25,17 +25,19 @@ class HomeController extends AbstractController
         $imgPath = "https://static.wixstatic.com/media/3997c6_979b9769a23e4aaa8ac2e32c202c79ae~mv2.jpg
         /v1/fill/w_640,h_434,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/3997c6_979b9769a23e4aaa8ac2e32c202c79ae~mv2.jpg";
         $titlePage = "Stefano Plazzo";
+
+        // Pagination pour la home page
         $qb = $em->getRepository(ParisValeurFonciere::class)->createQueryBuilder('p');
         $pagination = $paginator->paginate(
             $qb,
             $request->query->getInt('page', 1),
-            6
+            8
         );
 
         $properties = $em->getRepository(ParisValeurFonciere::class)->findAll();
-      
-        
-        
+
+
+
         return $this->render('home/index.html.twig', [
             'titlePage' => $titlePage,
             'image' => $imgPath,
@@ -45,8 +47,9 @@ class HomeController extends AbstractController
     }
 
     #[Route('/home/filter', name: 'app_home_filter')]
-    public function filterByArea(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator) : Response
+    public function filterByArea(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator): Response
     {
+        // creer les formulaires
         $form = $this->createForm(AreaFilterType::class);
         $form->handleRequest($request);
 
@@ -59,9 +62,9 @@ class HomeController extends AbstractController
         $priceForm = $this->createForm(PriceFilterType::class);
         $priceForm->handleRequest($request);
 
-       
-       
 
+
+        // les variables pour les filtres
         $min_area = $request->query->getInt('min_area', 0);
         $max_area = $request->query->getInt('max_area', PHP_INT_MAX);
         $zip = $request->query->get('zip', '');
@@ -69,7 +72,8 @@ class HomeController extends AbstractController
         $min_price = $request->query->getInt('min_price', 0);
         $max_price = $request->query->getInt('max_price', PHP_INT_MAX);
 
-        if($form->isSubmitted() && $form->isValid()){
+        // filtre par superficie
+        if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $min_area = $data['min_area'] ?? 0;
             $max_area = $data['max_area'] ?? PHP_INT_MAX;
@@ -78,12 +82,12 @@ class HomeController extends AbstractController
                 'min_area' => $min_area,
                 'max_area' => $max_area,
                 'zip' => $zip,
-               
-            ]);
 
+            ]);
         }
 
-        if($zipForm->isSubmitted() && $zipForm->isValid()){
+        // filtre par code postal
+        if ($zipForm->isSubmitted() && $zipForm->isValid()) {
             $data = $zipForm->getData();
             $zip = $data['code_postal'] ?? '';
 
@@ -91,11 +95,12 @@ class HomeController extends AbstractController
                 'min_area' => $min_area,
                 'max_area' => $max_area,
                 'zip' => $zip,
-                
+
             ]);
         }
 
-        if($roomForm->isSubmitted() && $roomForm->isValid()){
+        // filtre par nombre de piece
+        if ($roomForm->isSubmitted() && $roomForm->isValid()) {
             $data = $roomForm->getData();
             $roomNb = $data['nb_pieces'] ?? 0;
 
@@ -107,7 +112,8 @@ class HomeController extends AbstractController
             ]);
         }
 
-        if($priceForm->isSubmitted() && $priceForm->isValid()){
+        // filtre par prix
+        if ($priceForm->isSubmitted() && $priceForm->isValid()) {
             $data = $priceForm->getData();
             $min_price = $data['min_price'] ?? 0;
             $max_price = $data['max_price'] ?? PHP_INT_MAX;
@@ -120,40 +126,51 @@ class HomeController extends AbstractController
                 'max_price' => $max_price,
             ]);
         }
-        
+
+        // recuperer tous les biens et ensuite filtrer et renvoyer un tableau avec les biens qui correspondent aux filtres
         $filteredProperties = $em->getRepository(ParisValeurFonciere::class)->findAll();
         $result = [];
+        $imgPath = "https://static.wixstatic.com/media/3997c6_979b9769a23e4aaa8ac2e32c202c79ae~mv2.jpg
+        /v1/fill/w_640,h_434,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/3997c6_979b9769a23e4aaa8ac2e32c202c79ae~mv2.jpg";
         foreach ($filteredProperties as $property) {
             $superficie = $property->getSurfaceReelleBati();
             $code_postal = $property->getCodePostal();
             $nb_pieces = $property->getNbPieces();
             $propertyValue = $property->getValeurFonciere();
 
-            
-            if (($superficie >= $min_area && $superficie <= $max_area )
-            && ($zip === '' || $code_postal === $zip) 
-            && ($roomNb === 0 || $nb_pieces === $roomNb) 
-            &&($propertyValue >= $min_price && $propertyValue <= $max_price)) {
+
+            if (($superficie >= $min_area && $superficie <= $max_area)
+                && ($zip === '' || $code_postal === $zip)
+                && ($roomNb === 0 || $nb_pieces === $roomNb)
+                && ($propertyValue >= $min_price && $propertyValue <= $max_price)
+            ) {
                 $result[] = $property;
             }
         }
-     
+
         $filteredProperties = $result;
-        
+
+        // pagination pour la page filtres
         $pagination = $paginator->paginate(
             $filteredProperties,
             $request->query->getInt('page', 1),
             12
         );
-        
+
         return $this->render('home/filter.html.twig', [
             'filterAreaForm' => $form->createView(),
             'filterZipForm' => $zipForm->createView(),
             'filterRoomForm' => $roomForm->createView(),
             'filterPriceForm' => $priceForm->createView(),
             'pagination' => $pagination,
+            'image' => $imgPath,
             'filters' => $filteredProperties,
+            'min_area' => $min_area > 0 ? $min_area : null,
+            'max_area' => $max_area < PHP_INT_MAX ? $max_area : null,
+            'zip' => !empty($zip) ? $zip : null,
+            'nb_pieces' => $roomNb > 0 ? $roomNb : null,
+            'min_price' => $min_price > 0 ? $min_price : null,
+            'max_price' => $max_price < PHP_INT_MAX ? $max_price : null,
         ]);
     }
 }
-
