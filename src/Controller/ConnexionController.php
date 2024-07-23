@@ -2,18 +2,24 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ConnexionController extends AbstractController
 {
     #[Route('/connexion', name: 'app_connexion')]
-    public function index(): Response
+    public function index(EntityManagerInterface $em): Response
     {
-        return $this->render('connexion/index.html.twig', [
-            'controller_name' => 'ConnexionController',
-        ]);
+        $user = $em->getRepository(User::class);
+        $role =  $user->find('roles');
+        
+        if($role == 'ROLE_USER'){
+        return $this->redirect('/home');
+        }
+       
     }
 
     /** Double factor connexion : 
