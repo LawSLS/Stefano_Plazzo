@@ -64,7 +64,7 @@ class HomeController extends AbstractController
 
 
 
-        // les variables pour les filtres
+        // set les variables pour les filtres
         $min_area = $request->query->getInt('min_area', 0);
         $max_area = $request->query->getInt('max_area', PHP_INT_MAX);
         $zip = $request->query->get('zip', '');

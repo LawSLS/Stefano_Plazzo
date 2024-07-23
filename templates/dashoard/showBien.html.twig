@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{titlePage}}{% endblock %}
+
+{% block body %}
+<h1>{{bien.id}}</h1>
+<p class="mx-5">{{head[1]}} : {{bien.natureMutation}} </p>
+<p class="mx-5">{{head[26]}} : {{bien.typeLocal}} </p>
+<section class="d-flex">
+    <p class="mx-5">{{head[2]}} :  {{bien.noVoie}}</p>
+    <p class="mx-5">{{head[3]}} :  {{bien.bTQ}}</p>
+    <p class="mx-5">{{head[4]}} :  {{bien.typeVoie}}</p>
+    <p class="mx-5">{{head[5]}} :  {{bien.codeVoie}}</p>
+    <p class="mx-5">{{head[6]}} :  {{bien.voie}}</p>
+    <p class="mx-5">{{head[7]}} :  {{bien.codePostal}}</p>
+    <p class="mx-5">{{head[8]}} :  {{bien.commune}}</p>
+</section>
+<section class="d-flex">
+    <p class="mx-5">{{head[9]}} :  {{bien.section}}</p>
+    <p class="mx-5">{{head[10]}} :  {{bien.nbLots}}</p>
+    <p class="mx-5">{{head[11]}} :  {{bien.codeTypeLocal}}</p>
+    <p class="mx-5">{{head[12]}} :  {{bien.surfaceReelleBati}}</p>
+    <p class="mx-5">{{head[13]}} :  {{bien.nbPieces}}</p>
+    <p class="mx-5">{{head[14]}} :  {{bien.surfaceTerrain}}</p>
+    <p class="mx-5">{{head[15]}} :  {{bien.description}}</p>
+    <p class="mx-5">{{head[16]}} :  {{bien.dPE}}</p>
+</section>
+<section class="d-flex">
+    <p class="mx-5">{{head[17]}} :  {{bien.prixVente}}</p>
+    <p class="mx-5">{{head[18]}} :  {{bien.images}}</p>
+    <p class="mx-5">{{head[19]}} :  {{bien.dateCreationAnnonce}}</p>
+    <p class="mx-5">{{head[20]}} :  {{bien.dateDesactivationAnnonce}}</p>
+    <p class="mx-5">{{head[21]}} :  {{bien.dateMutation}}</p>
+    <p class="mx-5">{{head[22]}} :  {{bien.user}}</p>
+    <p class="mx-5">{{head[23]}} :  {{bien.valeurFonciere}}</p>
+    <p class="mx-5">{{head[24]}} :  {{bien.codeDepartement}}</p>
+    <p class="mx-5">{{head[25]}} :  {{bien.codeCommune}}</p>
+</section>
+<div class="d-flex justify-content-end">
+    <a href={{path('app_edit_bien', {id: bien.id})}} class="btn btn-primary me-3">Update</a>
+    <a href="" class="btn btn-primary me-3">Delete</a>
+</div>
+
+{% endblock %}

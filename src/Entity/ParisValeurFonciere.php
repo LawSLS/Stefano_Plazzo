@@ -65,7 +65,7 @@ class ParisValeurFonciere
     #[ORM\Column(nullable: true)]
     private ?float $prix_vente = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    #[ORM\Column(type: Types::JSON, nullable: true)]
     private ?array $images = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
