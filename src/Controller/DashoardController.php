@@ -39,9 +39,8 @@ class DashoardController extends AbstractController
         $userRepository = $em->getRepository(User::class);
         $users = $userRepository->findAll();
 
-        
-
-        //dd($head);
+        $biens = array_slice($biens, -5, 5);
+        //dd($biens);
         
         return $this->render('dashoard/index.html.twig', [
             'titlePage' => $title,
@@ -105,13 +104,24 @@ class DashoardController extends AbstractController
     }
 
     #[Route('/dashboard/bien/{id}', name: 'app_show_bien')]
-    public function showBien(ParisValeurFonciere $bien): Response
+    public function showBien(EntityManagerInterface $em, ParisValeurFonciere $bien): Response
     {
         $title = 'Bien';
+
+        $bienRespository = $em->getRepository(ParisValeurFonciere::class);
+        $biens = $bienRespository->findAll();
+        
+        $reflect = new ReflectionClass($biens[0]);
+        $properties = $reflect->getProperties();
+        $head = [];
+        foreach($properties as $property){
+            $head[] = $property->getName();
+        }
 
         return $this->render('dashoard/showBien.html.twig', [
             'bien' => $bien,
             'titlePage' => $title,
+            'head' => $head,
         ]);
     }
 
@@ -137,9 +147,10 @@ class DashoardController extends AbstractController
     #[Route('/dashboard/bien/delete/{id}', name: 'app_delete_bien')]
     public function deleteBien(ParisValeurFonciere $bien, EntityManagerInterface $em, Request $request): Response
     {
+        $em->remove($bien);
+        $em->flush();
 
-
-        return $this->redirectToRoute('app_dashoard');
+        return $this->redirectToRoute('app_dashboard_bien');
     }
 
 }
