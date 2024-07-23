@@ -3,6 +3,78 @@
 {% block title %}{{titlePage}}{% endblock %}
 
 {% block body %}
-    
+<h1 class="text-center"> Dashboard Admin</h1>
+
+<section class="d-flex justify-content-center">
+    <p><a href={{path('app_dashboard_bien')}} class="btn btn-primary me-5">Liste des biens</a></p>
+    <p><a href={{path('app_dashoard_user')}} class="btn btn-primary">Liste des users</a></p>
+</section>
+
+<section class="d-flex justify-content-end">
+    <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
+        <h5>Nombre de biens dans la base de données</h5>   
+        <p>{{biens| length}}</p> 
+    </div>
+    <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
+        <h5>Nombre de users dans la base de données</h5>
+        <p>{{users| length}}</p>
+    </div>
+</section>
+
+<section class="my-4">
+    <h4 class="text-center">Les derniers biens enregistrés</h4>
+    {% for bien in biens  %}
+        <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
+            <h3 class="me-5 px-3 text-end">{{head[0]}} : {{bien.id}}</h3>
+            <div class="d-flex px-3 py-2">
+                <p class="me-5 px-3">{{head[1]}} : {{bien.natureMutation}}</p>
+                <p class="me-5 px-3">{{head[2]}} : {{bien.noVoie}}</p>
+                <p class="me-5 px-3">{{head[4]}} : {{bien.typeVoie}}</p>
+                <p class="me-5 px-3">{{head[5]}} : {{bien.codeVoie}}</p>
+                <p class="me-5 px-3">{{head[6]}} : {{bien.voie}}</p>
+                <p class="me-5 px-3">{{head[7]}} : {{bien.codePostal}}</p>
+                <p class="me-5 px-3">{{head[8]}} : {{bien.commune}}</p>
+            </div>
+            <div class="d-flex px-3 py-2">
+                <p class="me-5 px-3">{{head[19]}} : {{bien.dateCreationAnnonce}}</p>
+                <p class="me-5 px-3">{{head[20]}} : {{bien.dateDesactivationAnnonce}}</p>
+                <p class="me-5 px-3">{{head[21]}} : {{bien.dateMutation}}</p>
+                <p class="me-5 px-3">{{head[22]}} : {{bien.user}}</p>
+                <p class="me-5 px-3">{{head[23]}} : {{bien.valeurFonciere}}</p>
+            </div>
+            <div class="d-flex justify-content-end">
+                <a href={{path('app_show_bien', {id: bien.id})}} class="btn btn-primary me-3">View</a>
+                <a href={{path('app_edit_bien', {id: bien.id})}} class="btn btn-primary me-3">Update</a>
+                <a href="" class="btn btn-primary me-3">Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+</section>
+
+<section class="my-4">
+    <h4 class="text-center">Les derniers users enregistrés</h4>
+    {% for user in users %}
+    <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
+        <h3 class="text-end">{{head[0]}} : {{user.id}}</h3>
+        <div class="d-flex px-3 py-2">
+            <p class="me-5 px-3">{{head[1]}} : {{user.email}}</p>
+            <p class="me-5 px-3">{{head[2]}} : {{user.roles[0]}}</p>
+            <p class="me-5 px-3">{{head[3]}} : {{user.password}}</p>
+            
+        </div>
+        <div class="d-flex px-3 py-2">
+            <p class="me-5 px-3">{{head[10]}} : {{user.country}}</p>
+            <p class="me-5 px-3">{{head[13]}} : {{user.nom}}</p>
+            <p class="me-5 px-3">{{head[14]}} : {{user.prenom}}</p>
+            <p class="me-5 px-3">{{head[12]}} : {{user.isActive}}</p>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a href="" class="btn btn-primary me-3">View</a>
+            <a href="" class="btn btn-primary me-3">Update</a>
+            <a href="" class="btn btn-primary me-3">Delete</a>
+        </div>
+    </div>    
+    {% endfor %} 
+</section>
 
 {% endblock %}
