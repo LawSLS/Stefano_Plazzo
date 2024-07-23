@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ParisValeurFonciere;
 use App\Entity\User;
 use App\Form\PropertyAdType;
+use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
 use Knp\Component\Pager\PaginatorInterface;
@@ -47,29 +48,6 @@ class DashoardController extends AbstractController
             'biens' => $biens,
             'head' => $head,
             'users' => $users,
-        ]);
-    }
-
-    #[Route('/dashboard/user', name: 'app_dashoard_user')]
-    public function users(EntityManagerInterface $em): Response
-    {
-
-        $title = "Dashboard admin users";
-        $userRepository = $em->getRepository(User::class);
-        $users = $userRepository->findAll();
-
-        $reflect = new ReflectionClass($users[0]);
-        $properties = $reflect->getProperties();
-        $head = [];
-        foreach($properties as $property){
-            $head[] = $property->getName();
-        }
-
-
-        return $this->render('dashoard/users.html.twig', [
-            'titlePage' => $title,
-            'users' => $users,
-            'head' => $head,
         ]);
     }
 
@@ -153,4 +131,68 @@ class DashoardController extends AbstractController
         return $this->redirectToRoute('app_dashboard_bien');
     }
 
+    #[Route('/dashboard/user', name: 'app_dashoard_user')]
+    public function users(EntityManagerInterface $em): Response
+    {
+
+        $title = "Dashboard admin users";
+        $userRepository = $em->getRepository(User::class);
+        $users = $userRepository->findAll();
+
+        $reflect = new ReflectionClass($users[0]);
+        $properties = $reflect->getProperties();
+        $head = [];
+        foreach($properties as $property){
+            $head[] = $property->getName();
+        }
+
+
+        return $this->render('dashoard/users.html.twig', [
+            'titlePage' => $title,
+            'users' => $users,
+            'head' => $head,
+        ]);
+    }
+
+    #[Route('/dashboard/user/{id}', name:'app_show_user')]
+    public function showUser(User $user, EntityManagerInterface $em): Response
+    {
+        $title = 'User';
+        $userRepository = $em->getRepository(User::class);
+        $users = $userRepository->findAll();
+
+        $reflect = new ReflectionClass($users[0]);
+        $properties = $reflect->getProperties();
+        $head = [];
+        foreach($properties as $property){
+            $head[] = $property->getName();
+        }
+
+        return $this->render('dashoard/showUser.html.twig', [
+            'titlePage' => $title,
+            'user' => $user,
+            'head' => $head,
+        ]);
+    }
+
+    #[Route('/dashboard/user/{id}/edit', name: 'app_edit_user')]
+    public function editUser(User $user, EntityManagerInterface $em, Request $request):Response
+    {
+
+        $title = 'Edit User';
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($user);
+            $em->flush();
+        }
+
+        
+
+        return $this->render('dashoard/editUser.html.twig', [
+            'titlePage' => $title,
+            'form' => $form,
+        ]);
+    }
 }
