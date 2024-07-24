@@ -51,29 +51,6 @@ class DashoardController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard/user', name: 'app_dashboard_user')]
-    public function users(EntityManagerInterface $em): Response
-    {
-
-        $title = "Dashboard admin users";
-        $userRepository = $em->getRepository(User::class);
-        $users = $userRepository->findAll();
-
-        $reflect = new ReflectionClass($users[0]);
-        $properties = $reflect->getProperties();
-        $head = [];
-        foreach($properties as $property){
-            $head[] = $property->getName();
-        }
-
-
-        return $this->render('dashboard/users.html.twig', [
-            'titlePage' => $title,
-            'users' => $users,
-            'head' => $head,
-        ]);
-    }
-
     #[Route('/dashboard/biens', name: 'app_dashboard_bien')]
     public function biens (EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
