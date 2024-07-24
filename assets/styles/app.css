@@ -116,3 +116,11 @@ h1 {
   background-color: #6f42c1 !important;
   color: whitesmoke !important;
 }
+.btnDetails{
+  background-color: #6f42c1;
+  color: whitesmoke;
+}
+.btnDetails:hover{
+  background-color: #6f42c1 !important;
+  color: whitesmoke !important;
+}

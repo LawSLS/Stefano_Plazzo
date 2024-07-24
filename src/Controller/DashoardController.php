@@ -104,7 +104,7 @@ class DashoardController extends AbstractController
     }
 
     #[Route('/dashboard/bien/{id}', name: 'app_show_bien')]
-    public function showBien(EntityManagerInterface $em, ParisValeurFonciere $bien): Response
+    public function showBien(EntityManagerInterface $em, ParisValeurFonciere $bien, Request $request): Response
     {
         $title = 'Bien';
 
@@ -118,6 +118,12 @@ class DashoardController extends AbstractController
             $head[] = $property->getName();
         }
 
+        if ($bien && $this->isCsrfTokenValid('delete' . $bien->getId(), $request->request->get('_token'))) {
+             $em->remove($bien);
+             $em->flush();
+
+             return $this->redirectToRoute('app_dashboard');
+        }
         return $this->render('dashboard/showBien.html.twig', [
             'bien' => $bien,
             'titlePage' => $title,
@@ -147,8 +153,8 @@ class DashoardController extends AbstractController
     #[Route('/dashboard/bien/delete/{id}', name: 'app_delete_bien')]
     public function deleteBien(ParisValeurFonciere $bien, EntityManagerInterface $em, Request $request): Response
     {
-        $em->remove($bien);
-        $em->flush();
+
+       
 
         return $this->redirectToRoute('app_dashboard_bien');
     }
