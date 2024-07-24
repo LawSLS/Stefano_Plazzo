@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{titlePage}}{% endblock %}
+{% block title %}{{titlePage}}{{bien.id}}{% endblock %}
 
 {% block body %}
+<h1>Edit bien n° {{bien.id}}</h1>
 <section>
     {{form_start(form)}}
         {{form_widget(form)}}

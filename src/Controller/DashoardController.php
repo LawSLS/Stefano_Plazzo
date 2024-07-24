@@ -69,23 +69,15 @@ class DashoardController extends AbstractController
 
         $biens = $bienRespository->findAll();
         
-        $reflect = new ReflectionClass($biens[0]);
-        $properties = $reflect->getProperties();
-        $head = [];
-        foreach($properties as $property){
-            $head[] = $property->getName();
-        }
-
         $pagination = $paginator->paginate(
             $biens,
             $request->query->getInt('page', 1),
             15
         );
-
+        //dd($pagination);
         return $this->render('dashboard/biens.html.twig', [
             'titlePage' => $title,
             'biens' => $biens,
-            'head' => $head,
             'pagination' => $pagination,
         ]);
     }
@@ -95,27 +87,16 @@ class DashoardController extends AbstractController
     {
         $title = 'Bien';
 
-        $bienRespository = $em->getRepository(ParisValeurFonciere::class);
-        $biens = $bienRespository->findAll();
-        
-        $reflect = new ReflectionClass($biens[0]);
-        $properties = $reflect->getProperties();
-        $head = [];
-        foreach($properties as $property){
-            $head[] = $property->getName();
-        }
-
         return $this->render('dashboard/showBien.html.twig', [
             'bien' => $bien,
             'titlePage' => $title,
-            'head' => $head,
         ]);
     }
 
     #[Route('/dashboard/bien/{id}/edit', name: 'app_edit_bien')]
     public function editBien(ParisValeurFonciere $bien, EntityManagerInterface $em, Request $request): Response
     {
-        $title = 'Edit bien';
+        $title = 'Edit bien n° ';
 
         $form = $this->createForm(PropertyAdType::class, $bien);
         $form->handleRequest($request);
@@ -128,7 +109,8 @@ class DashoardController extends AbstractController
 
         return $this->render('dashboard/editBien.html.twig', [
             'titlePage' => $title,
-            'form' => $form
+            'form' => $form,
+            'bien' => $bien,
         ]);
     }
 
