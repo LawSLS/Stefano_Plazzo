@@ -13,18 +13,20 @@
 						<a class="nav-link text-white" href="{{path("app_home")}}">Accueil</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-white" href="#">Estimation</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link text-white" href="#">Nous contacter</a>
+						<a class="nav-link text-white" href={{path('app_estimate')}}>Estimation</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link text-white" href={{ path('app_home_filter') }}>Filtrer</a>
 					</li>
 				</ul>
 				<div class="d-flex">
-					<a class="btn btn-primary me-2" href="{{path("app_connexion")}}">Se connecter</a>
-					<a class="btn btn-secondary" href="{{path("app_inscription")}}">S'inscrire</a>
+				{% if not app.user and app.request.attributes.get('_route') != 'app_login' %}
+                        <a class="btn btn-primary me-2" href="{{ path('app_login') }}">Se connecter</a>
+                        <a class="btn btn-secondary" href="{{ path('app_inscription') }}">S'inscrire</a>
+                    {% elseif app.user %}
+                        <span class="navbar-text me-2 text-white">Bienvenue {{ app.user.prenom}}</span>
+                        <a class="btn btn-outline-warning" href="{{ path('app_logout') }}">Déconnexion</a>
+                    {% endif %}
 				</div>
 			</div>
 		</div>

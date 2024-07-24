@@ -108,3 +108,11 @@ h1 {
 .hrHome{
   text-align: center;
 }
+.btn-lg{
+  background-color: #6f42c1;
+  color: whitesmoke;
+}
+.btn-lg:hover{
+  background-color: #6f42c1 !important;
+  color: whitesmoke !important;
+}

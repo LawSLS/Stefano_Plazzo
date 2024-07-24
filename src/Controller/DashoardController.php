@@ -17,10 +17,11 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
-//#[IsGranted('ROLE_ADMIN')]
+#[IsGranted('ROLE_ADMIN')]
+//#[IsGranted('ROLE_SUPER_ADMIN')]
 class DashoardController extends AbstractController
 {
-    #[Route('/dashboard', name: 'app_dashoard')]
+    #[Route('/dashboard', name: 'app_dashboard')]
     public function index(EntityManagerInterface $em): Response
     {
 
@@ -42,11 +43,34 @@ class DashoardController extends AbstractController
         $biens = array_slice($biens, -5, 5);
         //dd($biens);
         
-        return $this->render('dashoard/index.html.twig', [
+        return $this->render('dashboard/index.html.twig', [
             'titlePage' => $title,
             'biens' => $biens,
             'head' => $head,
             'users' => $users,
+        ]);
+    }
+
+    #[Route('/dashboard/user', name: 'app_dashboard_user')]
+    public function users(EntityManagerInterface $em): Response
+    {
+
+        $title = "Dashboard admin users";
+        $userRepository = $em->getRepository(User::class);
+        $users = $userRepository->findAll();
+
+        $reflect = new ReflectionClass($users[0]);
+        $properties = $reflect->getProperties();
+        $head = [];
+        foreach($properties as $property){
+            $head[] = $property->getName();
+        }
+
+
+        return $this->render('dashboard/users.html.twig', [
+            'titlePage' => $title,
+            'users' => $users,
+            'head' => $head,
         ]);
     }
 
@@ -72,7 +96,7 @@ class DashoardController extends AbstractController
             15
         );
 
-        return $this->render('dashoard/biens.html.twig', [
+        return $this->render('dashboard/biens.html.twig', [
             'titlePage' => $title,
             'biens' => $biens,
             'head' => $head,
@@ -95,7 +119,7 @@ class DashoardController extends AbstractController
             $head[] = $property->getName();
         }
 
-        return $this->render('dashoard/showBien.html.twig', [
+        return $this->render('dashboard/showBien.html.twig', [
             'bien' => $bien,
             'titlePage' => $title,
             'head' => $head,
