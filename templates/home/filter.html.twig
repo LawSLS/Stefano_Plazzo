@@ -2,7 +2,7 @@
 {% block title %}{% endblock %}
 {% block body %}
 	<div class="filterButtons d-flex mt-3 justify-content-around">
-		<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#filterModal">
+		<button type="button" class="btn btnDetails w-15" data-bs-toggle="modal" data-bs-target="#filterModal">
 			{% if min_area or max_area %}
 				surface: min:
 				{{ min_area }}
@@ -12,7 +12,7 @@
 				Superficie
 			{% endif %}
 		</button>
-		<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#zipModal">
+		<button type="button" class="btn btnDetails w-15" data-bs-toggle="modal" data-bs-target="#zipModal">
 			{% if zip %}
 				code postal:
 				{{ zip }}
@@ -20,7 +20,7 @@
 				code postal
 			{% endif %}
 		</button>
-		<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#roomModal">
+		<button type="button" class="btn btnDetails w-15" data-bs-toggle="modal" data-bs-target="#roomModal">
 			{% if nb_pieces %}
 				nombre de piecè(s):
 				{{ nb_pieces }}
@@ -28,7 +28,7 @@
 				nombre de pièces
 			{% endif %}
 		</button>
-		<button type="button" class="btn btn-primary w-15" data-bs-toggle="modal" data-bs-target="#priceModal">
+		<button type="button" class="btn btnDetails w-15" data-bs-toggle="modal" data-bs-target="#priceModal">
 			{% if min_price or max_price %}
 				Prix: min:
 				{{ min_price }}

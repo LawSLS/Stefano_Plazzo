@@ -38,7 +38,10 @@
 </section>
 <div class="d-flex justify-content-end">
     <a href={{path('app_edit_bien', {id: bien.id})}} class="btn btn-primary me-3">Update</a>
-    <a href="" class="btn btn-primary me-3">Delete</a>
+    <form action={{ path('app_show_bien', {id: bien.id}) }} method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer le bien {{bien.id}}?');">
+    <input type="hidden" name="_token" value={{ csrf_token('delete' ~ bien.id) }}>
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
 </div>
 
 {% endblock %}
