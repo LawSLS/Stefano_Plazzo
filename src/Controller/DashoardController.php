@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
-//#[IsGranted('ROLE_ADMIN')]
+#[IsGranted('ROLE_ADMIN')]
 //#[IsGranted('ROLE_SUPER_ADMIN')]
 class DashoardController extends AbstractController
 {
@@ -32,22 +32,31 @@ class DashoardController extends AbstractController
         
         $reflect = new ReflectionClass($biens[0]);
         $properties = $reflect->getProperties();
-        $head = [];
+        $headBien = [];
         foreach($properties as $property){
-            $head[] = $property->getName();
+            $headBien[] = $property->getName();
         }
 
         $userRepository = $em->getRepository(User::class);
         $users = $userRepository->findAll();
 
-        $biens = array_slice($biens, -5, 5);
+        $reflect = new ReflectionClass($users[0]);
+        $properties = $reflect->getProperties();
+        $headUser = [];
+        foreach($properties as $property){
+            $headUser[] = $property->getName();
+        }
+
+        $biensSlice = array_slice($biens, -5, 5);
         //dd($biens);
         
         return $this->render('dashboard/index.html.twig', [
             'titlePage' => $title,
             'biens' => $biens,
-            'head' => $head,
+            'headBien' => $headBien,
             'users' => $users,
+            'headUser' => $headUser,
+            'biensSlice' => $biensSlice
         ]);
     }
 
@@ -116,7 +125,7 @@ class DashoardController extends AbstractController
         }
 
 
-        return $this->render('dashoard/editBien.html.twig', [
+        return $this->render('dashboard/editBien.html.twig', [
             'titlePage' => $title,
             'form' => $form
         ]);
@@ -131,7 +140,7 @@ class DashoardController extends AbstractController
         return $this->redirectToRoute('app_dashboard_bien');
     }
 
-    #[Route('/dashboard/user', name: 'app_dashoard_user')]
+    #[Route('/dashboard/user', name: 'app_dashboard_user')]
     public function users(EntityManagerInterface $em): Response
     {
 
@@ -147,7 +156,7 @@ class DashoardController extends AbstractController
         }
 
 
-        return $this->render('dashoard/users.html.twig', [
+        return $this->render('dashboard/users.html.twig', [
             'titlePage' => $title,
             'users' => $users,
             'head' => $head,
@@ -168,7 +177,7 @@ class DashoardController extends AbstractController
             $head[] = $property->getName();
         }
 
-        return $this->render('dashoard/showUser.html.twig', [
+        return $this->render('dashboard/showUser.html.twig', [
             'titlePage' => $title,
             'user' => $user,
             'head' => $head,
@@ -190,7 +199,7 @@ class DashoardController extends AbstractController
 
         
 
-        return $this->render('dashoard/editUser.html.twig', [
+        return $this->render('dashboard/editUser.html.twig', [
             'titlePage' => $title,
             'form' => $form,
         ]);
