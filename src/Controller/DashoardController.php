@@ -18,7 +18,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 //#[IsGranted('ROLE_ADMIN')]
-//#[IsGranted('ROLE_SUPER_ADMIN')]
 class DashoardController extends AbstractController
 {
     #[Route('/dashboard', name: 'app_dashoard')]
@@ -187,8 +186,6 @@ class DashoardController extends AbstractController
             $em->persist($user);
             $em->flush();
         }
-
-        
 
         return $this->render('dashoard/editUser.html.twig', [
             'titlePage' => $title,
