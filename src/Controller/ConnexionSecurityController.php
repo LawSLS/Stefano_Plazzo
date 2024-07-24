@@ -16,7 +16,15 @@ class ConnexionSecurityController extends AbstractController
     {
         $user = $security->getUser();
 
-        if ($user) return $this->redirectToRoute('app_home');
+
+        if ($user) {
+            if ($security->isGranted("ROLE_ADMIN")) {
+                return $this->redirectToRoute('app_dashboard');
+            }elseif ($security->isGranted("ROLE_USER")) {
+                return $this->redirectToRoute('app_home');
+            }
+        }
+        
         
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
