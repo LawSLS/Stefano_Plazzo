@@ -122,6 +122,7 @@ class DashoardController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($bien);
             $em->flush();
+            return $this->redirectToRoute('app_dashboard');
         }
 
 
@@ -195,6 +196,7 @@ class DashoardController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($user);
             $em->flush();
+            return $this->redirectToRoute('app_dashboard');
         }
 
         

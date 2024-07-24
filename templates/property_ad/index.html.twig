@@ -3,9 +3,9 @@
 {% block title %}{{titlePage}}{% endblock %}
 
 {% block body %}
-<h1>{{titlePage}}</h1>
+<h1 class="text-center">{{titlePage}}</h1>
 
-<section>
+<section class="mx-5">
     {{form_start(form)}}
         {{form_widget(form)}}
         <button type="submit" class="btn btn-primary">Envoyer</button>
