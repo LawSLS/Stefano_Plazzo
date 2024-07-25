@@ -27,9 +27,8 @@ class PropertyAdType extends AbstractType
             ->add('b_t_q', TextType::class,['required' => false])
             ->add('type_voie', TextType::class,[])
             ->add('code_voie', TextType::class,[ 'required' => false])
-            ->add('voie', TextType::class,['required' => false])
+            ->add('voie', TextType::class,[])
             ->add('code_postal', ChoiceType::class,[
-                'expanded' => true,
                 'choices' => [
                     '75001' => '75001',
                     '75002' => '75002',
@@ -77,7 +76,6 @@ class PropertyAdType extends AbstractType
                     'Paris 19' => 'Paris 19',
                     'Paris 20' => 'Paris 20',
                 ],
-                'required' => false
             ])
             ->add('section', TextType::class,['required' => false])
             ->add('nb_lots', TextType::class,[ 'required' => false])
@@ -85,7 +83,7 @@ class PropertyAdType extends AbstractType
             ->add('surface_reelle_bati', TextType::class,[])
             ->add('nb_pieces', TextType::class,[])
             ->add('surface_terrain', TextType::class,[])
-            ->add('description', TextareaType::class,[ 'required' => false])
+            ->add('description', TextareaType::class,[])
             ->add('d_p_e', ChoiceType::class,[
                 'choices' => [
                     'A' => 'A',
@@ -96,13 +94,10 @@ class PropertyAdType extends AbstractType
                     'F' => 'F',
                     'G' => 'G' 
                 ],
-                'required' => false
             ])
-            ->add('prix_vente', TextType::class,[ 'required' => false])
-            ->add('images', FileType::class,[ 'required' => false])
-            ->add('date_mutation', DateType::class,[
-                'widget' => 'single_text',
-                'input'  => 'datetime_immutable',
+            ->add('prix_vente', TextType::class,[])
+            ->add('images', FileType::class,['required' => false])
+            ->add('date_mutation', TextType::class,[
                 'required' => false])
             ->add('valeur_fonciere', TextType::class,[
                 'attr' => ['class' => 'w-50', 'style'=> 'display:none'],
@@ -119,11 +114,10 @@ class PropertyAdType extends AbstractType
                 ],
                 'attr' => ['class' => 'd-flex']
             ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
+            ->add('user', TextType::class, [
                 'attr' => ['style' => 'display:none'],
-                'label_attr' => ['style' => 'display:none']
+                'label_attr' => ['style' => 'display:none'],
+                'required' => false
             ])
         ;
     }

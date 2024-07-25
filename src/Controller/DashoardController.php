@@ -24,38 +24,19 @@ class DashoardController extends AbstractController
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(EntityManagerInterface $em): Response
     {
-
         $title = "Dashboard Admin";
+
         $bienRespository = $em->getRepository(ParisValeurFonciere::class);
-
         $biens = $bienRespository->findAll();
+        $biensSlice = array_slice($biens, -5, 5);
         
-        $reflect = new ReflectionClass($biens[0]);
-        $properties = $reflect->getProperties();
-        $headBien = [];
-        foreach($properties as $property){
-            $headBien[] = $property->getName();
-        }
-
         $userRepository = $em->getRepository(User::class);
         $users = $userRepository->findAll();
 
-        $reflect = new ReflectionClass($users[0]);
-        $properties = $reflect->getProperties();
-        $headUser = [];
-        foreach($properties as $property){
-            $headUser[] = $property->getName();
-        }
-
-        $biensSlice = array_slice($biens, -5, 5);
-        //dd($biens);
-        
         return $this->render('dashboard/index.html.twig', [
             'titlePage' => $title,
             'biens' => $biens,
-            'headBien' => $headBien,
             'users' => $users,
-            'headUser' => $headUser,
             'biensSlice' => $biensSlice
         ]);
     }
@@ -74,7 +55,7 @@ class DashoardController extends AbstractController
             $request->query->getInt('page', 1),
             15
         );
-        //dd($pagination);
+
         return $this->render('dashboard/biens.html.twig', [
             'titlePage' => $title,
             'biens' => $biens,
@@ -83,7 +64,7 @@ class DashoardController extends AbstractController
     }
 
     #[Route('/dashboard/bien/{id}', name: 'app_show_bien')]
-    public function showBien(EntityManagerInterface $em, ParisValeurFonciere $bien): Response
+    public function showBien(ParisValeurFonciere $bien): Response
     {
         $title = 'Bien';
 
@@ -106,21 +87,11 @@ class DashoardController extends AbstractController
             return $this->redirectToRoute('app_dashboard');
         }
 
-
         return $this->render('dashboard/editBien.html.twig', [
             'titlePage' => $title,
             'form' => $form,
             'bien' => $bien,
         ]);
-    }
-
-    #[Route('/dashboard/bien/delete/{id}', name: 'app_delete_bien')]
-    public function deleteBien(ParisValeurFonciere $bien, EntityManagerInterface $em, Request $request): Response
-    {
-        $em->remove($bien);
-        $em->flush();
-
-        return $this->redirectToRoute('app_dashboard_bien');
     }
 
     #[Route('/dashboard/user', name: 'app_dashboard_user')]
@@ -131,39 +102,26 @@ class DashoardController extends AbstractController
         $userRepository = $em->getRepository(User::class);
         $users = $userRepository->findAll();
 
-        $reflect = new ReflectionClass($users[0]);
-        $properties = $reflect->getProperties();
-        $head = [];
-        foreach($properties as $property){
-            $head[] = $property->getName();
-        }
-
-
         return $this->render('dashboard/users.html.twig', [
             'titlePage' => $title,
             'users' => $users,
-            'head' => $head,
         ]);
     }
 
     #[Route('/dashboard/user/{id}', name:'app_show_user')]
-    public function showUser(User $user, EntityManagerInterface $em): Response
+    public function showUser(User $user, EntityManagerInterface $em, Request $request): Response
     {
         $title = 'User';
-        $userRepository = $em->getRepository(User::class);
-        $users = $userRepository->findAll();
 
-        $reflect = new ReflectionClass($users[0]);
-        $properties = $reflect->getProperties();
-        $head = [];
-        foreach($properties as $property){
-            $head[] = $property->getName();
+        if($user && $this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))){
+            $em->remove($user);
+            $em->flush;
+
+            return $this->redirectToRoute('app_dashboard');
         }
-
         return $this->render('dashboard/showUser.html.twig', [
             'titlePage' => $title,
             'user' => $user,
-            'head' => $head,
         ]);
     }
 
@@ -180,8 +138,6 @@ class DashoardController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('app_dashboard');
         }
-
-        
 
         return $this->render('dashboard/editUser.html.twig', [
             'titlePage' => $title,
