@@ -20,6 +20,8 @@ class HomeControllerTest extends WebTestCase
     public function testFilterByArea()
     {
        
+        self::bootKernel(['environment' => 'db_sp',
+    'debug'       => false,]);
         $client = self::$client;
 
         // Requete get avec les filtres

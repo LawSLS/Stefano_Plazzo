@@ -95,6 +95,8 @@ class HomeController extends AbstractController
                 'min_area' => $min_area,
                 'max_area' => $max_area,
                 'zip' => $zip,
+                'min_price' => $min_price,
+                'max_price' => $max_price,
 
             ]);
         }
@@ -109,6 +111,8 @@ class HomeController extends AbstractController
                 'max_area' => $max_area,
                 'zip' => $zip,
                 'nb_pieces' => $roomNb,
+                'min_price' => $min_price,
+                'max_price' => $max_price,
             ]);
         }
 
