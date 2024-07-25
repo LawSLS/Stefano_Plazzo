@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{titlePage}}{% endblock %}
+
+{% block body %}
+        <h3 class="text-center">User id n° {{user.id}}</h3>
+        <p class="me-5 px-3">Rôles : {{user.roles[0]}}</p>
+        {% if user.isActive == 1 or user.isActive == "" %}
+            <p class="me-5 px-3">Actif<p>
+        {% else %}
+            <p class="me-5 px-3">Inactif<p>
+        {% endif %}
+        
+        
+        <div class="d-flex px-3 py-2">
+            <p class="me-5 px-3">Nom: {{user.nom}}</p>
+            <p class="me-5 px-3">Prénom : {{user.prenom}}</p>
+            
+        </div>
+        <h4>Identification</h4>
+        <div class="d-flex px-3 py-2">
+            <p class="me-5 px-3">Email : {{user.email}}</p>
+            <p class="me-5 px-3">Mot de passe : {{user.password}}</p>
+            
+        </div>
+        <h4>Coordonnées</h4>
+        <div class="d-flex px-3 py-2">
+            <p class="me-5 px-3">N° de téléphone : {{user.telephone}}</p>
+            <p class="me-5 px-3">N° de voie: {{user.noVoieUser}}</p>
+            <p class="me-5 px-3">Type de voie : {{user.typeVoieUser}}</p>
+            <p class="me-5 px-3">Voie : {{user.voieUser}}</p>
+            <p class="me-5 px-3">Code postal : {{user.codePostalUser}}</p>
+            <p class="me-5 px-3">Commune : {{user.communeUser}}</p>
+            <p class="me-5 px-3">Code département : {{user.codeDepartementUser}}</p>
+            <p class="me-5 px-3">Pays : {{user.country}}</p>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a href={{path('app_edit_user', {id: user.id})}} class="btn btn-primary me-3">Update</a>
+            <a href="" class="btn btn-primary me-3">Delete</a>
+        </div>   
+
+{% endblock %}

@@ -3,12 +3,120 @@
 {% block title %}{{titlePage}}{% endblock %}
 
 {% block body %}
-<h1>{{titlePage}}</h1>
+<h1 class="text-center">{{titlePage}}</h1>
 
-<section>
+<section class="mx-5">
     {{form_start(form)}}
-        {{form_widget(form)}}
-        <button type="submit" class="btn btn-primary">Envoyer</button>
+    <section id="localisation" class="mb-5 pt-4">
+        <h3>Localisation</h3>
+        <div class="d-flex flex-wrap">
+            <div class="col-1 me-5">
+            {{form_label(form.no_voie,'N° de la voie',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.no_voie,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-3 me-5">
+            {{form_label(form.type_voie,'Type de voie',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.type_voie,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-3 me-5">
+            {{form_label(form.voie,'Voie',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.voie,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-3 me-5">
+            {{form_label(form.commune,'Commune',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.commune,{'label_attr':{'class':'form-label'}})}}
+            </div>
+        </div>
+        <div class="col-12 flex-wrap">
+            {{form_label(form.code_postal,'Code Postal',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.code_postal,{'label_attr':{'class':'form-label'}})}}
+        </div>
+    </section>
+
+    <section id="infoBien" class="mb-5 pt-4">
+        <h3>Détails du bien immobilier</h3>
+        <div class="d-flex flex-wrap">
+            <div class="col-2 me-5">
+            {{form_label(form.type_local,'Type de bien',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.type_local,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-1 me-5">
+            {{form_label(form.surface_reelle_bati,'Superficie',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.surface_reelle_bati,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-2 me-5">
+            {{form_label(form.surface_terrain,'Superficie du terrain',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.surface_terrain,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-1 me-5">
+            {{form_label(form.nb_pieces,'Nombre de pièces',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.nb_pieces,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-1 me-5">
+            {{form_label(form.d_p_e,'DPE',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.d_p_e,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-2 me-5">
+            {{form_label(form.prix_vente,'Prix de vente',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.prix_vente,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-2 me-5">
+            {{form_label(form.nature_mutation,'Nature mutation',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.nature_mutation,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-2 me-5">
+            {{form_label(form.date_mutation,'Date mutation',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.date_mutation,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-6 me-5">
+            {{form_label(form.images,'Telecharger une image',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.images,{'label_attr':{'class':'form-label'}})}}
+            </div>
+        </div>
+        <div class="col-11">
+            {{form_label(form.description,'Description',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.description,{'label_attr':{'class':'form-label'}})}}
+        </div>
+    </section>
+
+    <section id="administratif" class="mb-5 pt-4">
+        <h3>Informtions administratives</h3>
+        <div class="d-flex flex-wrap">
+            <div class="col-2 me-5">
+            {{form_label(form.b_t_q,'BTQ',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.b_t_q,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-2 me-5">
+            {{form_label(form.section,'Section',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.section,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-2 me-5">
+            {{form_label(form.nb_lots,'Nombre de lots',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.nb_lots,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-2 me-5">
+            {{form_label(form.code_type_local,'Code type local',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.code_type_local,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-2 me-5">
+            {{form_label(form.code_voie,'Code voie',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.code_voie,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-2 me-5">
+            {{form_label(form.code_departement,'Code département',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.code_departement,{'label_attr':{'class':'form-label'}})}}
+            </div>
+            <div class="col-2 me-5">
+            {{form_label(form.code_commune,'Code commune',{'label_attr':{'class':'form-label fw-bold'}})}}
+            {{form_widget(form.code_commune,{'label_attr':{'class':'form-label'}})}}
+            </div>
+        </div>
+    </section>
+
+        
+        <div class='col-12 d-flex justify-content-center'>
+            <button type="submit" class="btn btn-primary w-25">Envoyer</button>
+        </div>
     {{form_end(form)}}
 </section>
 

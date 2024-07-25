@@ -123,4 +123,9 @@ h1 {
 .btnDetails:hover{
   background-color: #6f42c1 !important;
   color: whitesmoke !important;
+
+/*PAGE PUBLICATION*/
+div.form-check {
+  padding-right: 10px;
+  margin-right:  20px;
 }

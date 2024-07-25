@@ -23,24 +23,24 @@
 
 <section class="my-4">
     <h4 class="text-center">Les derniers biens enregistrés</h4>
-    {% for bien in biens  %}
+    {% for bien in biensSlice  %}
         <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
-            <h3 class="me-5 px-3 text-end">{{head[0]}} : {{bien.id}}</h3>
+            <h3 class="me-5 px-3 text-end">{{headBien[0]}} : {{bien.id}}</h3>
             <div class="d-flex px-3 py-2">
-                <p class="me-5 px-3">{{head[1]}} : {{bien.natureMutation}}</p>
-                <p class="me-5 px-3">{{head[2]}} : {{bien.noVoie}}</p>
-                <p class="me-5 px-3">{{head[4]}} : {{bien.typeVoie}}</p>
-                <p class="me-5 px-3">{{head[5]}} : {{bien.codeVoie}}</p>
-                <p class="me-5 px-3">{{head[6]}} : {{bien.voie}}</p>
-                <p class="me-5 px-3">{{head[7]}} : {{bien.codePostal}}</p>
-                <p class="me-5 px-3">{{head[8]}} : {{bien.commune}}</p>
+                <p class="me-5 px-3">{{headBien[1]}} : {{bien.natureMutation}}</p>
+                <p class="me-5 px-3">{{headBien[2]}} : {{bien.noVoie}}</p>
+                <p class="me-5 px-3">{{headBien[4]}} : {{bien.typeVoie}}</p>
+                <p class="me-5 px-3">{{headBien[5]}} : {{bien.codeVoie}}</p>
+                <p class="me-5 px-3">{{headBien[6]}} : {{bien.voie}}</p>
+                <p class="me-5 px-3">{{headBien[7]}} : {{bien.codePostal}}</p>
+                <p class="me-5 px-3">{{headBien[8]}} : {{bien.commune}}</p>
             </div>
             <div class="d-flex px-3 py-2">
-                <p class="me-5 px-3">{{head[19]}} : {{bien.dateCreationAnnonce}}</p>
-                <p class="me-5 px-3">{{head[20]}} : {{bien.dateDesactivationAnnonce}}</p>
-                <p class="me-5 px-3">{{head[21]}} : {{bien.dateMutation}}</p>
-                <p class="me-5 px-3">{{head[22]}} : {{bien.user}}</p>
-                <p class="me-5 px-3">{{head[23]}} : {{bien.valeurFonciere}}</p>
+                <p class="me-5 px-3">{{headBien[19]}} : {{bien.dateCreationAnnonce}}</p>
+                <p class="me-5 px-3">{{headBien[20]}} : {{bien.dateDesactivationAnnonce}}</p>
+                <p class="me-5 px-3">{{headBien[21]}} : {{bien.dateMutation}}</p>
+                <p class="me-5 px-3">{{headBien[22]}} : {{bien.user}}</p>
+                <p class="me-5 px-3">{{headBien[23]}} : {{bien.valeurFonciere}}</p>
             </div>
             <div class="d-flex justify-content-end">
                 <a href={{path('app_show_bien', {id: bien.id})}} class="btn btn-primary me-3">View</a>
@@ -55,22 +55,22 @@
     <h4 class="text-center">Les derniers users enregistrés</h4>
     {% for user in users %}
     <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
-        <h3 class="text-end">{{head[0]}} : {{user.id}}</h3>
+        <h3 class="text-end">{{headUser[0]}} : {{user.id}}</h3>
         <div class="d-flex px-3 py-2">
-            <p class="me-5 px-3">{{head[1]}} : {{user.email}}</p>
-            <p class="me-5 px-3">{{head[2]}} : {{user.roles[0]}}</p>
-            <p class="me-5 px-3">{{head[3]}} : {{user.password}}</p>
+            <p class="me-5 px-3">{{headUser[1]}} : {{user.email}}</p>
+            <p class="me-5 px-3">{{headUser[2]}} : {{user.roles[0]}}</p>
+            <p class="me-5 px-3">{{headUser[3]}} : {{user.password}}</p>
             
         </div>
         <div class="d-flex px-3 py-2">
-            <p class="me-5 px-3">{{head[10]}} : {{user.country}}</p>
-            <p class="me-5 px-3">{{head[13]}} : {{user.nom}}</p>
-            <p class="me-5 px-3">{{head[14]}} : {{user.prenom}}</p>
-            <p class="me-5 px-3">{{head[12]}} : {{user.isActive}}</p>
+            <p class="me-5 px-3">{{headUser[10]}} : {{user.country}}</p>
+            <p class="me-5 px-3">{{headUser[13]}} : {{user.nom}}</p>
+            <p class="me-5 px-3">{{headUser[14]}} : {{user.prenom}}</p>
+            <p class="me-5 px-3">{{headUser[12]}} : {{user.isActive}}</p>
         </div>
         <div class="d-flex justify-content-end">
-            <a href="" class="btn btn-primary me-3">View</a>
-            <a href="" class="btn btn-primary me-3">Update</a>
+            <a href={{path('app_show_user', {id: user.id})}} class="btn btn-primary me-3">View</a>
+            <a href={{path('app_edit_user', {id: user.id})}} class="btn btn-primary me-3">Update</a>
             <a href="" class="btn btn-primary me-3">Delete</a>
         </div>
     </div>    
