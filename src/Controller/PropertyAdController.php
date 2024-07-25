@@ -58,7 +58,10 @@ class PropertyAdController extends AbstractController
         $estimation = new ParisValeurFonciere();
         $form = $this->createForm(EstimateType::class, $estimation);
         $form->handleRequest($request);
+        $value = 0;
 
+        if ($form->isSubmitted() && $form->isValid())
+        {
         $data = $form->getData();
         $voie = $data->getTypeVoie();
         $cp = $data->getCodePostal();
@@ -66,13 +69,15 @@ class PropertyAdController extends AbstractController
         $pieces = $data->getNbPieces();
         $terrain = $data->getSurfaceTerrain();
         $typeLocal = $data->getTypeLocal();
-        // var_dump($voie, $cp, $superficie, $pieces, $terrain, $typeLocal);
-
+        
         $model = new ModelDVF();
 
         $model->loadSavedModel('dvf_model_84.rbx');
         $value = $model->predict([$voie, $cp, $typeLocal, $superficie, $pieces, $terrain]);
-        //var_dump($value);
+        }
+
+        
+        
 
 
 

@@ -13,7 +13,7 @@
 <section class="d-flex justify-content-end">
     <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
         <h5>Nombre de biens dans la base de données</h5>   
-        <p>{{biens| length}}</p> 
+        <p>{{biensSlice| length}}</p> 
     </div>
     <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
         <h5>Nombre de users dans la base de données</h5>
@@ -69,8 +69,8 @@
             <p class="me-5 px-3">{{headUser[12]}} : {{user.isActive}}</p>
         </div>
         <div class="d-flex justify-content-end">
-            <a href={{path('app_show_user', {id: user.id})}} class="btn btn-primary me-3">View</a>
-            <a href={{path('app_edit_user', {id: user.id})}} class="btn btn-primary me-3">Update</a>
+            
+          
             <a href="" class="btn btn-primary me-3">Delete</a>
         </div>
     </div>    

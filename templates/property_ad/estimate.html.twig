@@ -14,7 +14,7 @@
     </section>
     <section class="mx-5 w-100">
         <p>Votre bien est estimé à: </p>
-        <h2>{{value}} €</h2>
+        <h2>{{value | number_format(0, '.', ' ')}}&nbsp;€</h2>
     </section>
 </div>
 {% endblock %}
