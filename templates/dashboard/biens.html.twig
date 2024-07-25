@@ -12,29 +12,27 @@
 
 
     <section id="bienAdminList">
-        {% for bien in biens |slice(0,5) %}
+        {% for bien in pagination.items %}
         <div class="mx-5 mb-5 rounded-1 border border-secondary bg-secondary text-white">
-            <h3 class="me-5 px-3 text-end">{{head[0]}} : {{bien.id}}</h3>
+            <h3 class="me-5 px-3 text-end">id : {{bien.id}}</h3>
             <div class="d-flex px-3 py-2">
-                <p class="me-5 px-3">{{head[1]}} : {{bien.natureMutation}}</p>
-                <p class="me-5 px-3">{{head[2]}} : {{bien.noVoie}}</p>
-                <p class="me-5 px-3">{{head[4]}} : {{bien.typeVoie}}</p>
-                <p class="me-5 px-3">{{head[5]}} : {{bien.codeVoie}}</p>
-                <p class="me-5 px-3">{{head[6]}} : {{bien.voie}}</p>
-                <p class="me-5 px-3">{{head[7]}} : {{bien.codePostal}}</p>
-                <p class="me-5 px-3">{{head[8]}} : {{bien.commune}}</p>
+                <p class="me-5 px-3">Nature Mutation : {{bien.natureMutation}}</p>
+                <p class="me-5 px-3">N° de voie : {{bien.noVoie}}</p>
+                <p class="me-5 px-3">Type de voie : {{bien.typeVoie}}</p>
+                <p class="me-5 px-3">Code de voie : {{bien.codeVoie}}</p>
+                <p class="me-5 px-3">Voie : {{bien.voie}}</p>
+                <p class="me-5 px-3">Code Postal : {{bien.codePostal}}</p>
+                <p class="me-5 px-3">Commune : {{bien.commune}}</p>
             </div>
             <div class="d-flex px-3 py-2">
-                <p class="me-5 px-3">{{head[19]}} : {{bien.dateCreationAnnonce}}</p>
-                <p class="me-5 px-3">{{head[20]}} : {{bien.dateDesactivationAnnonce}}</p>
-                <p class="me-5 px-3">{{head[21]}} : {{bien.dateMutation}}</p>
-                <p class="me-5 px-3">{{head[22]}} : {{bien.user}}</p>
-                <p class="me-5 px-3">{{head[23]}} : {{bien.valeurFonciere}}</p>
+                <p class="me-5 px-3">Date de création : {{bien.dateCreationAnnonce}}</p>
+                <p class="me-5 px-3">Date de désaction : {{bien.dateDesactivationAnnonce}}</p>
+                <p class="me-5 px-3">Date de mutation : {{bien.dateMutation}}</p>
+                <p class="me-5 px-3">user : {{bien.user}}</p>
+                <p class="me-5 px-3">Valeur foncière : {{bien.valeurFonciere}}</p>
             </div>
             <div class="d-flex justify-content-end">
                 <a href={{path('app_show_bien', {id: bien.id})}} class="btn btn-primary me-2">View</a>
-                <a href={{path('app_edit_bien', {id: bien.id})}} class="btn btn-primary me-2">Update</a>
-                <button>Delete</button>
             </div>
         </div>
         {% endfor %}

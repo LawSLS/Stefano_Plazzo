@@ -11,15 +11,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\ModelDVF;
-use PDO;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-
+#[IsGranted('ROLE_USER')]
 class PropertyAdController extends AbstractController
 {
     #[Route('/property/ad', name: 'app_property_ad')]
     public function index(Request $request, EntityManagerInterface $em): Response
     {
         $title = "Publier votre annonce";
+
+        $user = $this->getUser() ;
 
         $bien = new ParisValeurFonciere();
         $form = $this->createForm(PropertyAdType::class, $bien);
@@ -40,8 +42,12 @@ class PropertyAdController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $bien->setValeurFonciere($value);
+            $bien->setUser($user);
             $em->persist($bien);
             $em->flush();
+
+            
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('property_ad/index.html.twig', [
@@ -58,7 +64,10 @@ class PropertyAdController extends AbstractController
         $estimation = new ParisValeurFonciere();
         $form = $this->createForm(EstimateType::class, $estimation);
         $form->handleRequest($request);
+        $value = 0;
 
+        if ($form->isSubmitted() && $form->isValid())
+        {
         $data = $form->getData();
         $voie = $data->getTypeVoie();
         $cp = $data->getCodePostal();
@@ -66,13 +75,15 @@ class PropertyAdController extends AbstractController
         $pieces = $data->getNbPieces();
         $terrain = $data->getSurfaceTerrain();
         $typeLocal = $data->getTypeLocal();
-        // var_dump($voie, $cp, $superficie, $pieces, $terrain, $typeLocal);
-
+        
         $model = new ModelDVF();
 
         $model->loadSavedModel('dvf_model_84.rbx');
         $value = $model->predict([$voie, $cp, $typeLocal, $superficie, $pieces, $terrain]);
-        //var_dump($value);
+        }
+
+        
+        
 
 
 

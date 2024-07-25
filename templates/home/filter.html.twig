@@ -134,12 +134,12 @@
 						<img src={{ image }} class="card-img-top" alt="un appartement">
 						<div class="card-body">
 							<h5 class="card-title">
-								Card title
+								{{property.typeLocal}}
 							</h5>
 							<div>
 								<p class="card-text">
 									Prix :
-									{{ property.valeurFonciere }}
+									{{ property.valeurFonciere |number_format(0, '.', ' ')}}&nbsp;€
 								</p>
 								<p class="card-text">
 									Localisation :

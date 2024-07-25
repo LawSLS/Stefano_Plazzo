@@ -36,8 +36,9 @@ class InscriptionController extends AbstractController
                 $user,
                 $plainPassword
             );
+            $roles = ['ROLE_USER'];
             $user->setPassword($hashedPassword);
-
+            $user->setRoles($roles);
             $entityManager->persist($user);
             $entityManager->flush();
 

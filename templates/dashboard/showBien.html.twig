@@ -3,38 +3,61 @@
 {% block title %}{{titlePage}}{% endblock %}
 
 {% block body %}
-<h1>{{bien.id}}</h1>
-<p class="mx-5">{{head[1]}} : {{bien.natureMutation}} </p>
-<p class="mx-5">{{head[26]}} : {{bien.typeLocal}} </p>
 <section class="d-flex">
-    <p class="mx-5">{{head[2]}} :  {{bien.noVoie}}</p>
-    <p class="mx-5">{{head[3]}} :  {{bien.bTQ}}</p>
-    <p class="mx-5">{{head[4]}} :  {{bien.typeVoie}}</p>
-    <p class="mx-5">{{head[5]}} :  {{bien.codeVoie}}</p>
-    <p class="mx-5">{{head[6]}} :  {{bien.voie}}</p>
-    <p class="mx-5">{{head[7]}} :  {{bien.codePostal}}</p>
-    <p class="mx-5">{{head[8]}} :  {{bien.commune}}</p>
+    <p><a href={{path('app_dashboard_bien')}} class="btn btn-primary me-5">Liste des biens</a></p>
+    <p><a href={{path('app_dashboard')}} class="btn btn-primary">Dashboard</a></p>
 </section>
-<section class="d-flex">
-    <p class="mx-5">{{head[9]}} :  {{bien.section}}</p>
-    <p class="mx-5">{{head[10]}} :  {{bien.nbLots}}</p>
-    <p class="mx-5">{{head[11]}} :  {{bien.codeTypeLocal}}</p>
-    <p class="mx-5">{{head[12]}} :  {{bien.surfaceReelleBati}}</p>
-    <p class="mx-5">{{head[13]}} :  {{bien.nbPieces}}</p>
-    <p class="mx-5">{{head[14]}} :  {{bien.surfaceTerrain}}</p>
-    <p class="mx-5">{{head[15]}} :  {{bien.description}}</p>
-    <p class="mx-5">{{head[16]}} :  {{bien.dPE}}</p>
+<h1 class="text-center">Bien n° {{bien.id}}</h1>
+
+<section>
+    <h2>Localisation</h2>
+    <div class="d-flex flex-wrap">
+        <p class="mx-5">N° de voie :  {{bien.noVoie}}</p>
+        <p class="mx-5">Type voie :  {{bien.typeVoie}}</p>
+        <p class="mx-5">Voie :  {{bien.voie}}</p>
+        <p class="mx-5">Commune :  {{bien.commune}}</p>
+        <p class="mx-5">Code Postal :  {{bien.codePostal}}</p>
+    </div>
 </section>
-<section class="d-flex">
-    <p class="mx-5">{{head[17]}} :  {{bien.prixVente}}</p>
-    <p class="mx-5">{{head[18]}} :  {{bien.images}}</p>
-    <p class="mx-5">{{head[19]}} :  {{bien.dateCreationAnnonce}}</p>
-    <p class="mx-5">{{head[20]}} :  {{bien.dateDesactivationAnnonce}}</p>
-    <p class="mx-5">{{head[21]}} :  {{bien.dateMutation}}</p>
-    <p class="mx-5">{{head[22]}} :  {{bien.user}}</p>
-    <p class="mx-5">{{head[23]}} :  {{bien.valeurFonciere}}</p>
-    <p class="mx-5">{{head[24]}} :  {{bien.codeDepartement}}</p>
-    <p class="mx-5">{{head[25]}} :  {{bien.codeCommune}}</p>
+<section>
+    <h2>Détails du bien immobilier</h2>
+    <div class="d-flex flex-wrap">
+        <p class="mx-5">Type Local : {{bien.typeLocal}} </p>
+        <p class="mx-5">Superficie :  {{bien.surfaceReelleBati}}</p>
+        <p class="mx-5">Superficie terrain :  {{bien.surfaceTerrain}}</p>
+        <p class="mx-5">Nombre de pièces :  {{bien.nbPieces}}</p>
+        <p class="mx-5">DPE :  {{bien.dPE}}</p>
+        <p class="mx-5">Prix de vente :  {{bien.prixVente}}</p>
+        <p class="mx-5">Valeur foncière:  {{bien.valeurFonciere}}</p>
+        <p class="mx-5">Nature Mutation : {{bien.natureMutation}} </p>
+        <p class="mx-5">Date de mutation :  {{bien.dateMutation}}</p>
+        <p class="mx-5">Images :  {{bien.images}}</p>
+        <p class="mx-5">Description :  {{bien.description}}</p>
+    </div>
+</section>
+<section>
+    <h2>Informations administratives</h2>
+    <div class="d-flex flex-wrap">
+        <p class="mx-5">BTQ :  {{bien.bTQ}}</p>
+        <p class="mx-5">Section :  {{bien.section}}</p>
+        <p class="mx-5">Nombre de lots :  {{bien.nbLots}}</p>
+        <p class="mx-5">Code type local:  {{bien.codeTypeLocal}}</p>
+        <p class="mx-5">Code voie :  {{bien.codeVoie}}</p>
+        <p class="mx-5">Code département :  {{bien.codeDepartement}}</p>
+        <p class="mx-5">Code commune :  {{bien.codeCommune}}</p>
+    </div>
+</section>
+<section>
+    <h2>Informations en BDD</h2>
+    <div class="d-flex flex-wrap">
+        <p class="mx-5">Date de création :  {{bien.dateCreationAnnonce}}</p>
+        <p class="mx-5">Date de désactivation :  {{bien.dateDesactivationAnnonce}}</p>
+        {% if bien.user.id is not defined %}
+        <p class="mx-5">user :  </p>
+        {% else %}
+        <p class="mx-5">user :  {{bien.user.id}}</p>
+        {% endif %}
+    </div>
 </section>
 <div class="d-flex justify-content-end">
     <a href={{path('app_edit_bien', {id: bien.id})}} class="btn btn-primary me-3">Update</a>

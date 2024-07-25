@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{titlePage}}{% endblock %}
+
+{% block body %}
+<section class="d-flex">
+    <p><a href={{path('app_dashboard_user')}} class="btn btn-primary me-5">Liste des users</a></p>
+    <p><a href={{path('app_dashboard')}} class="btn btn-primary">Dashboard</a></p>
+</section>
+<h1 class="text-center">User id n° {{user.id}}</h1>
+<p class="me-5 px-3">Rôles : {{user.roles[0]}}</p>
+{% if user.isActive == 1 or user.isActive == "" %}
+    <p class="me-5 px-3">Actif<p>
+{% else %}
+    <p class="me-5 px-3">Inactif<p>
+{% endif %}
+
+
+
+<section>
+    <h2>Identification</h2>
+    <div class="d-flex px-3 py-2">
+        <p class="me-5 px-3">Email : {{user.email}}</p>
+        <p class="me-5 px-3">Mot de passe : {{user.password}}</p>
+        <p class="me-5 px-3">Nom: {{user.nom}}</p>
+        <p class="me-5 px-3">Prénom : {{user.prenom}}</p>  
+    </div>
+</section>
+
+<section>
+    <h2>Coordonnées</h2>
+    <div class="d-flex px-3 py-2">
+        <p class="me-5 px-3">N° de téléphone : {{user.telephone}}</p>
+        <p class="me-5 px-3">N° de voie: {{user.noVoieUser}}</p>
+        <p class="me-5 px-3">Type de voie : {{user.typeVoieUser}}</p>
+        <p class="me-5 px-3">Voie : {{user.voieUser}}</p>
+        <p class="me-5 px-3">Code postal : {{user.codePostalUser}}</p>
+        <p class="me-5 px-3">Commune : {{user.communeUser}}</p>
+        <p class="me-5 px-3">Code département : {{user.codeDepartementUser}}</p>
+        <p class="me-5 px-3">Pays : {{user.country}}</p>
+    </div>
+</section>
+
+<div class="d-flex justify-content-end">
+    <a href={{path('app_edit_user', {id: user.id})}} class="btn btn-primary me-3">Update</a>
+    <form action={{ path('app_show_bien', {id: user.id}) }} method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer le bien {{user.id}}?');">
+        <input type="hidden" name="_token" value={{ csrf_token('delete' ~ user.id) }}>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>   
+
+{% endblock %}

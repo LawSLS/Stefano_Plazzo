@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'app_home')]
+    #[Route('/', name: 'app_home')]
     public function index(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
 
@@ -174,3 +174,4 @@ class HomeController extends AbstractController
         ]);
     }
 }
+

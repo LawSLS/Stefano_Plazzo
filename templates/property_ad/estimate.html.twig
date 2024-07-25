@@ -3,12 +3,18 @@
 {% block title %}{{titlePage}}{% endblock %}
 
 {% block body %}
-<h1>{{titlePage}}</h1>
+<h1 class="text-center">{{titlePage}}</h1>
 
-<section>
-    {{form_start(form)}}
+<div class="d-flex col-10 mx-5">
+    <section class="mx-5 w-100">
+        {{form_start(form)}}
             {{form_widget(form)}}
             <button type="submit" class="btn btn-primary">Envoyer</button>
-    {{form_end(form)}}
-</section>
+        {{form_end(form)}}
+    </section>
+    <section class="mx-5 w-100">
+        <p>Votre bien est estimé à: </p>
+        <h2>{{value | number_format(0, '.', ' ')}}&nbsp;€</h2>
+    </section>
+</div>
 {% endblock %}
