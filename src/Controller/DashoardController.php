@@ -32,12 +32,14 @@ class DashoardController extends AbstractController
         
         $userRepository = $em->getRepository(User::class);
         $users = $userRepository->findAll();
+
         
         
         return $this->render('dashboard/index.html.twig', [
             'titlePage' => $title,
             'biensSlice' => $biensSlice,
             'users' => $users,
+            'biens' => $biens,
         ]);
     }
 
@@ -76,17 +78,7 @@ class DashoardController extends AbstractController
     public function showBien(EntityManagerInterface $em, ParisValeurFonciere $bien, Request $request): Response
     {
         $title = 'Bien';
-
-        $bienRespository = $em->getRepository(ParisValeurFonciere::class);
-        $biens = $bienRespository->findAll();
         
-        $reflect = new ReflectionClass($biens[0]);
-        $properties = $reflect->getProperties();
-        $head = [];
-        foreach($properties as $property){
-            $head[] = $property->getName();
-        }
-
         if ($bien && $this->isCsrfTokenValid('delete' . $bien->getId(), $request->request->get('_token'))) {
              $em->remove($bien);
              $em->flush();
@@ -96,7 +88,7 @@ class DashoardController extends AbstractController
         return $this->render('dashboard/showBien.html.twig', [
             'bien' => $bien,
             'titlePage' => $title,
-            'head' => $head,
+           
         ]);
     }
 
@@ -114,7 +106,8 @@ class DashoardController extends AbstractController
 
         return $this->render('dashboard/editBien.html.twig', [
             'titlePage' => $title,
-            'form' => $form
+            'form' => $form,
+            'bien' => $bien,
         ]);
     }
 
